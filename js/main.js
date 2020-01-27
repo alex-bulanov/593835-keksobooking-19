@@ -13,18 +13,24 @@ var pinWidth = parseInt(pinStyle.width, 10);
 
 var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var times = ['12:00', '13:00', '14:00'];
-var housing = ['palace', 'flat', 'house', 'bungalo'];
+var checkTimes = ['12:00', '13:00', '14:00'];
+var apartments = ['palace', 'flat', 'house', 'bungalo'];
 
 var getRandomNumber = function (minValue, maxValue) {
   return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
 };
 
-var getArray = function (arr) {
+var getRandomElement = function (arr) {
+  var max = arr.length - 1;
+  var min = 0;
+  return arr[Math.floor(Math.random() * (max - min + 1) + min)];
+};
+
+var getRandomLengthArray = function (arr) {
   return arr.slice(0, getRandomNumber(1, arr.length));
 };
 
-var generatingObject = function (index) {
+var getAdObject = function (index) {
   var object = {
     author: {
       avatar: 'img/avatars/user' + '0' + (index + 1) + '.png'
@@ -33,14 +39,14 @@ var generatingObject = function (index) {
       title: 'Title',
       address: '600, 350',
       price: 200,
-      type: housing[getRandomNumber(0, housing.length - 1)],
+      type: apartments[getRandomElement(apartments)],
       rooms: 5,
       guests: 5,
-      checkin: times[getRandomNumber(0, times.length - 1)],
-      checkout: times[getRandomNumber(0, times.length - 1)],
-      features: getArray(features),
+      checkin: checkTimes[getRandomElement(checkTimes)],
+      checkout: checkTimes[getRandomElement(checkTimes)],
+      features: getRandomLengthArray(features),
       description: 'description',
-      photos: getArray(photos)
+      photos: getRandomLengthArray(photos)
     },
     location: {
       x: getRandomNumber(pinWidth, mapWidth - pinWidth),
@@ -50,15 +56,15 @@ var generatingObject = function (index) {
   return object;
 };
 
-var generatingObjects = function () {
+var getAdObjects = function () {
   var newArr = [];
   for (var i = 0; i < 8; i++) {
-    newArr.push(generatingObject(i));
+    newArr.push(getAdObject(i));
   }
   return newArr;
 };
 
-var objects = generatingObjects();
+var objects = getAdObjects();
 
 
 for (var i = 0; i < objects.length; i++) {

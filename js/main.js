@@ -182,15 +182,18 @@ var getAdCardElement = function (object) {
   } else {
     removeAllChildren(cardPhotos);
 
+    var fragment = document.createDocumentFragment();
     for (var i = 0; i < object.offer.photos.length; i++) {
+
       var element = document.createElement('IMG');
       element.classList.add('popup__photo');
       element.style.width = '45px';
       element.style.height = '40px';
       element.src = object.offer.photos[i];
       element.alt = 'Фотография жилья';
-      cardPhotos.appendChild(element);
+      fragment.appendChild(element);
     }
+    cardPhotos.appendChild(fragment);
   }
 
   removeAllChildren(cardFeaturesList);

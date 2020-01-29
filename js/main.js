@@ -4,8 +4,9 @@ var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var checkTimes = ['12:00', '13:00', '14:00'];
 var apartments = ['palace', 'flat', 'house', 'bungalo'];
+var pluralForms = ['комната', 'комнаты', 'комнат'];
 
-var apart = {
+var apartmentNamesByKey = {
   'palace': 'Дворец',
   'flat': 'Квартира',
   'house': 'Дом',
@@ -23,26 +24,18 @@ var mapWidth = parseInt(mapStyle.width, 10);
 var pinStyle = getComputedStyle(pin);
 var pinWidth = parseInt(pinStyle.width, 10);
 
-
-var elemDelete = function (newdiv) {
-  newdiv.parentNode.removeChild(newdiv);
-};
-
-var getCleanList = function (list) {
-  var children = list.children;
-  for (var i = children.length - 1; i >= 0; i--) {
-    var child = children[i];
-    child.parentElement.removeChild(child);
-  }
+var removeAllChildren = function (element) {
+  element.innerHTML = '';
 };
 
 var getRandomNumber = function (minValue, maxValue) {
   return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
 };
 
-var getRandomElement = function (arr) {
+var getRandomArrayElement = function (arr) {
   var max = arr.length - 1;
   var min = 0;
+
   return arr[Math.floor(Math.random() * (max - min + 1) + min)];
 };
 
@@ -61,11 +54,11 @@ var getAdObject = function (index) {
       title: 'Title',
       address: '600, 350',
       price: 200,
-      type: getRandomElement(apartments),
+      type: getRandomArrayElement(apartments),
       rooms: getRandomNumber(1, 10),
       guests: getRandomNumber(1, 10),
-      checkin: getRandomElement(checkTimes),
-      checkout: getRandomElement(checkTimes),
+      checkin: getRandomArrayElement(checkTimes),
+      checkout: getRandomArrayElement(checkTimes),
       features: getRandomLengthArray(features),
       description: 'тут будет описание',
       photos: getRandomLengthArray(photos)
@@ -75,17 +68,20 @@ var getAdObject = function (index) {
       y: getRandomNumber(130, 630)
     }
   };
+
   return object;
 };
 
 // ф-ция создания массива с 8 объектами.
 
 var getAdObjects = function () {
-  var newArr = [];
+  var newArray = [];
+
   for (var i = 0; i < 8; i++) {
-    newArr.push(getAdObject(i));
+    newArray.push(getAdObject(i));
   }
-  return newArr;
+
+  return newArray;
 };
 
 // ф-ция создания массива пинов.
@@ -96,10 +92,11 @@ var getPins = function (objects) {
 
   for (var i = 0; i < objects.length; i++) {
     var pinElement = pinTemplate.cloneNode(true);
-    pinElement.querySelector('img').src = objects[i].author.avatar;
-    pinElement.querySelector('img').alt = objects[i].offer.title;
-    pinElement.style.left = objects[i].location.x + 'px';
-    pinElement.style.top = objects[i].location.y + 'px';
+    var currentObject = objects[i];
+    pinElement.querySelector('img').src = currentObject.author.avatar;
+    pinElement.querySelector('img').alt = currentObject.offer.title;
+    pinElement.style.left = currentObject.location.x + 'px';
+    pinElement.style.top = currentObject.location.y + 'px';
     pins.push(pinElement);
   }
 
@@ -117,6 +114,35 @@ var renderPins = function (elements) {
   }
 };
 
+// ф-ция получения строки с множественным окончанием.
+
+var getNumEnding = function (quantity, aEndings) {
+  var sEnding = '';
+  var index = null;
+
+  quantity = quantity % 100;
+
+  if (quantity >= 11 && quantity <= 19) {
+    sEnding = aEndings[2];
+  } else {
+    index = quantity % 10;
+    switch (index) {
+      case (1):
+        sEnding = aEndings[0];
+        break;
+      case (2):
+      case (3):
+      case (4):
+        sEnding = aEndings[1];
+        break;
+      default:
+        sEnding = aEndings[2];
+    }
+  }
+
+  return sEnding;
+};
+
 // ф-ция создания карточки.
 
 var getAdCardElement = function (object) {
@@ -132,32 +158,21 @@ var getAdCardElement = function (object) {
   var cardDescription = cardElement.querySelector('.popup__description');
   var cardPhotos = cardElement.querySelector('.popup__photos');
   var cardPhotoImg = cardElement.querySelector('.popup__photos img');
-
-  var roomString = '';
-  switch (object.offer.rooms) {
-    case 1 :
-      roomString = ' комната для ';
-      break;
-    case 2:
-    case 3:
-    case 4:
-      roomString = ' комнаты для ';
-      break;
-    default:
-      roomString = ' комнат для ';
-  }
-
   var guestsSting = ' гостя';
 
   if (object.offer.guests > 1) {
     guestsSting = ' гостей';
   }
 
+  var currentRoomsValue = object.offer.rooms;
+  var roomString = getNumEnding(currentRoomsValue, pluralForms);
+
   cardTitle.textContent = object.offer.title;
   cardAddress.textContent = object.offer.address;
   cardPrice.textContent = object.offer.price + '₽/ночь';
-  cardApartmentsType.textContent = apart[object.offer.type];
-  cardCapacity.textContent = object.offer.rooms + roomString + object.offer.guests + guestsSting;
+  cardApartmentsType.textContent = apartmentNamesByKey[object.offer.type];
+  cardCapacity.textContent = currentRoomsValue + ' ' + roomString + ' '
+  + object.offer.guests + guestsSting;
   cardCheckTime.textContent = 'Заезд после ' + object.offer.checkin + ' выезд до ' + object.offer.checkout;
   cardDescription.textContent = object.offer.description;
 
@@ -165,7 +180,7 @@ var getAdCardElement = function (object) {
     cardPhotoImg.src = object.offer.photos;
 
   } else {
-    elemDelete(cardPhotoImg);
+    removeAllChildren(cardPhotos);
 
     for (var i = 0; i < object.offer.photos.length; i++) {
       var element = document.createElement('IMG');
@@ -178,7 +193,7 @@ var getAdCardElement = function (object) {
     }
   }
 
-  getCleanList(cardFeaturesList);
+  removeAllChildren(cardFeaturesList);
 
   for (var j = 0; j < object.offer.features.length; j++) {
     var item = document.createElement('LI');
@@ -200,18 +215,17 @@ var renderCard = function (element) {
 
 map.classList.remove('map--faded');
 
-
 // получаем массив с объектами.
-var adObjects = getAdObjects();
+var adsObjects = getAdObjects();
 
 // получаем массив пинов.
-var pins = getPins(adObjects);
+var pins = getPins(adsObjects);
 
 // отрисовываем пины на карте
 renderPins(pins);
 
 // создаем одну карточку
-var oneCard = getAdCardElement(adObjects[0]);
+var oneCard = getAdCardElement(adsObjects[0]);
 
 // отрисовываем карточку на карте.
 renderCard(oneCard);

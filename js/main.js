@@ -1,5 +1,7 @@
 'use strict';
 
+var ENTER_KEY = 'Enter';
+
 var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var checkTimes = ['12:00', '13:00', '14:00'];
@@ -15,9 +17,12 @@ var apartmentNamesByKey = {
 
 var map = document.querySelector('.map');
 var pin = document.querySelector('.map__pin');
+var pinMain = document.querySelector('.map__pin--main');
 
 var mapPins = document.querySelector('.map__pins');
 var mapFilterContainer = document.querySelector('.map__filters-container');
+
+var adForm = document.querySelector('.ad-form');
 
 var mapStyle = getComputedStyle(map);
 var mapWidth = parseInt(mapStyle.width, 10);
@@ -216,19 +221,78 @@ var renderCard = function (element) {
   map.insertBefore(fragment, mapFilterContainer);
 };
 
-map.classList.remove('map--faded');
+var setDisabledAttribute = function (elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].setAttribute('disabled', 'disabled');
+  }
+};
+
+var removeDisabledAttribute = function (elements) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].removeAttribute('disabled');
+  }
+};
+
+var setDisabledFormElements = function (form) {
+  var adFormFieldset = form.querySelectorAll('fieldset');
+  var adFormSelect = form.querySelectorAll('select');
+  var adFormInput = form.querySelectorAll('input');
+  var adFormButton = form.querySelectorAll('button');
+  setDisabledAttribute(adFormFieldset);
+  setDisabledAttribute(adFormSelect);
+  setDisabledAttribute(adFormInput);
+  setDisabledAttribute(adFormButton);
+};
+
+var removeDisabledFormElements = function (form) {
+  var adFormFieldset = form.querySelectorAll('fieldset');
+  var adFormSelect = form.querySelectorAll('select');
+  var adFormInput = form.querySelectorAll('input');
+  var adFormButton = form.querySelectorAll('button');
+  removeDisabledAttribute(adFormFieldset);
+  removeDisabledAttribute(adFormSelect);
+  removeDisabledAttribute(adFormInput);
+  removeDisabledAttribute(adFormButton);
+};
+
+var onLeftMouseClick = function (evt) {
+  if (evt.which === 1) {
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    removeDisabledFormElements(adForm);
+    pinMain.removeEventListener('keydown', onPinEnterPress);
+  }
+};
+
+var onPinEnterPress = function (evt) {
+  if (evt.key === ENTER_KEY) {
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    removeDisabledFormElements(adForm);
+    pinMain.removeEventListener('click', onLeftMouseClick);
+  }
+};
+
+// map.classList.remove('map--faded');
 
 // получаем массив с объектами.
-var adsObjects = getAdObjects();
+// var adsObjects = getAdObjects();
 
 // получаем массив пинов.
-var pins = getPins(adsObjects);
+// var pins = getPins(adsObjects);
 
 // отрисовываем пины на карте
-renderPins(pins);
+// renderPins(pins);
 
 // создаем одну карточку
-var oneCard = getAdCardElement(adsObjects[0]);
+// var oneCard = getAdCardElement(adsObjects[0]);
 
 // отрисовываем карточку на карте.
-renderCard(oneCard);
+// renderCard(oneCard);
+
+
+setDisabledFormElements(adForm);
+
+
+pinMain.addEventListener('click', onLeftMouseClick);
+pinMain.addEventListener('keydown', onPinEnterPress);

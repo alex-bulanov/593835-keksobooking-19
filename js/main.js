@@ -28,6 +28,10 @@ var mapStyle = getComputedStyle(map);
 var mapWidth = parseInt(mapStyle.width, 10);
 var pinStyle = getComputedStyle(pin);
 var pinWidth = parseInt(pinStyle.width, 10);
+var pinHeight = parseInt(pinStyle.height, 10);
+
+var pinLeftСoordinate = parseInt(pinStyle.left, 10);
+var pinTopСoordinate = parseInt(pinStyle.top, 10);
 
 var removeAllChildren = function (element) {
   element.innerHTML = '';
@@ -238,6 +242,7 @@ var setDisabledFormElements = function (form) {
   var adFormSelect = form.querySelectorAll('select');
   var adFormInput = form.querySelectorAll('input');
   var adFormButton = form.querySelectorAll('button');
+
   setDisabledAttribute(adFormFieldset);
   setDisabledAttribute(adFormSelect);
   setDisabledAttribute(adFormInput);
@@ -249,11 +254,22 @@ var removeDisabledFormElements = function (form) {
   var adFormSelect = form.querySelectorAll('select');
   var adFormInput = form.querySelectorAll('input');
   var adFormButton = form.querySelectorAll('button');
+  var adFormInputAddress = form.querySelector('input[name = address]');
+
   removeDisabledAttribute(adFormFieldset);
   removeDisabledAttribute(adFormSelect);
   removeDisabledAttribute(adFormInput);
   removeDisabledAttribute(adFormButton);
+  adFormInputAddress.focus();
+
+  var AddressСoordinateX = Math.floor(pinLeftСoordinate + pinWidth / 2);
+  var AddressСoordinateY = Math.floor(pinTopСoordinate + pinHeight);
+  var inputAddressValue = AddressСoordinateX + ', ' + AddressСoordinateY;
+
+  adFormInputAddress.value = inputAddressValue;
 };
+
+setDisabledFormElements(adForm);
 
 var onLeftMouseClick = function (evt) {
   if (evt.which === 1) {
@@ -273,8 +289,6 @@ var onPinEnterPress = function (evt) {
   }
 };
 
-// map.classList.remove('map--faded');
-
 // получаем массив с объектами.
 // var adsObjects = getAdObjects();
 
@@ -290,9 +304,6 @@ var onPinEnterPress = function (evt) {
 // отрисовываем карточку на карте.
 // renderCard(oneCard);
 
-
-setDisabledFormElements(adForm);
-
-
 pinMain.addEventListener('click', onLeftMouseClick);
+
 pinMain.addEventListener('keydown', onPinEnterPress);

@@ -304,6 +304,58 @@ var onPinEnterPress = function (evt) {
 // отрисовываем карточку на карте.
 // renderCard(oneCard);
 
+var checkRoomGuestsValidity = function () {
+  var target = guestsQuantity;
+  switch (roomQuantity.value) {
+    case '1':
+      if (parseInt(guestsQuantity.value, 10) > 1 || parseInt(guestsQuantity.value, 10) === 0) {
+        target.setCustomValidity('Гостей должно быть не больше одного.');
+      } else {
+        target.setCustomValidity('');
+      }
+      break;
+    case '2':
+      if (parseInt(guestsQuantity.value, 10) > 2 || parseInt(guestsQuantity.value, 10) === 0) {
+        target.setCustomValidity('Гостей должно быть не больше двух.');
+      } else {
+        target.setCustomValidity('');
+      }
+      break;
+    case '3':
+      if (parseInt(guestsQuantity.value, 10) > 3 || parseInt(guestsQuantity.value, 10) === 0) {
+        target.setCustomValidity('Гостей должно быть не больше трех.');
+      } else {
+        target.setCustomValidity('');
+      }
+      break;
+    case '100':
+      if (parseInt(guestsQuantity.value, 10) !== 0) {
+        target.setCustomValidity('Подходит только для "не гостей"');
+      } else {
+        target.setCustomValidity('');
+      }
+      break;
+
+    default:
+      target.setCustomValidity('');
+  }
+};
+
 pinMain.addEventListener('click', onLeftMouseClick);
 
 pinMain.addEventListener('keydown', onPinEnterPress);
+
+
+var roomQuantity = document.getElementById('room_number');
+var guestsQuantity = document.getElementById('capacity');
+
+checkRoomGuestsValidity();
+
+var onChangesQuantity = function () {
+  checkRoomGuestsValidity();
+};
+
+roomQuantity.addEventListener('change', onChangesQuantity);
+guestsQuantity.addEventListener('change', onChangesQuantity);
+
+

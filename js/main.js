@@ -3,8 +3,8 @@
 var ENTER_KEY = 'Enter';
 var MIN_TITLE_LENGTH = 30;
 var MAX_TITLE_LENGTH = 100;
-var MIN_PRICE_VALUE = 1000;
-var MAX_PRICE_VALUE = 1000000;
+var MinPriceValue = 0;
+var MaxPriceValue = 1000000;
 
 var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
@@ -343,15 +343,14 @@ var onInputTitleValidity = function () {
 
 var onInputPriceValidity = function () {
   var target = adPrice;
-  if (target.value < MIN_PRICE_VALUE || target.value > MAX_PRICE_VALUE) {
+  if (target.value < MinPriceValue || target.value > MaxPriceValue) {
     target.setCustomValidity('Цена не может быть ниже ' +
-      MIN_PRICE_VALUE +
-        ' и выше чем ' + MAX_PRICE_VALUE + '.');
+      MinPriceValue +
+        ' и выше чем ' + MaxPriceValue + '.');
   } else {
     target.setCustomValidity('');
   }
 };
-
 
 checkRoomGuestsValidity();
 onInputTitleValidity();
@@ -395,4 +394,3 @@ pinMain.addEventListener('click', onLeftMouseClick);
 pinMain.addEventListener('keydown', onPinEnterPress);
 adTitle.addEventListener('input', onInputTitleValidity);
 adPrice.addEventListener('input', onInputPriceValidity);
-

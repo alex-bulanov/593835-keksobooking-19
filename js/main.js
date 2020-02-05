@@ -1,6 +1,7 @@
 'use strict';
 
 var ENTER_KEY = 'Enter';
+var ESC_KEY = 'Escape';
 var MIN_TITLE_LENGTH = 30;
 var MAX_TITLE_LENGTH = 100;
 var MAX_PRICE_VALUE = 1000000;
@@ -257,7 +258,6 @@ var checkRoomGuestsValidity = function () {
   }
 };
 
-
 // ф-ция получения строки с множественным окончанием.
 
 var getNumEnding = function (quantity, aEndings) {
@@ -383,6 +383,13 @@ var renderCard = function (element) {
 };
 
 // События
+var onEscPressClosePopup = function (evt) {
+  var popup = document.querySelector('.popup');
+  if (evt.key === ESC_KEY) {
+    popup.remove();
+    document.removeEventListener('keydown', onEscPressClosePopup);
+  }
+};
 
 var onInputPriceValidity = function () {
   checkInputPriceValidity();
@@ -433,7 +440,6 @@ var onFormChange = function () {
   var adRoomQuantityField = document.getElementById('room_number');
   var adGuestsQuantityField = document.getElementById('capacity');
   var adTitleField = document.getElementById('title');
-  // var adAddressField = document.getElementById('address');
   var adHousingTypeField = document.getElementById('type');
   var adTimeInField = document.getElementById('timein');
   var adTimeOutField = document.getElementById('timeout');
@@ -461,6 +467,8 @@ var onPinLeftMouseClick = function (evt) {
   } else {
     renderCard(currentCard);
   }
+
+  document.addEventListener('keydown', onEscPressClosePopup);
 };
 
 var onPinEnterPress = function (evt) {
@@ -478,6 +486,7 @@ var onPinEnterPress = function (evt) {
     } else {
       renderCard(currentCard);
     }
+    document.addEventListener('keydown', onEscPressClosePopup);
   }
 };
 

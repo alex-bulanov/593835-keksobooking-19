@@ -131,7 +131,8 @@ var getPins = function (objects) {
     pinElement.querySelector('img').alt = currentObject.offer.title;
     pinElement.style.left = currentObject.location.x + 'px';
     pinElement.style.top = currentObject.location.y + 'px';
-    pinElement.setAttribute('data-index', i);
+
+    pinElement.dataset.index = i;
     pins.push(pinElement);
   }
 
@@ -433,7 +434,7 @@ var checkRoomGuestsValidity = function () {
 
 var onPinLeftMouseClick = function (evt) {
   var currentPin = evt.currentTarget;
-  var currentIndex = currentPin.getAttribute('data-index');
+  var currentIndex = currentPin.dataset.index;
   var currentCard = getAdCardElement(pinDataObjects[currentIndex]);
   var oldCard = document.querySelector('.map__card');
   if (document.contains(oldCard)) {

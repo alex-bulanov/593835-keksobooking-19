@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEY = 'Escape';
   var MIN_TITLE_LENGTH = 30;
   var MAX_TITLE_LENGTH = 100;
   var MAX_PRICE_VALUE = 1000000;
@@ -28,7 +27,6 @@
   };
 
   window.data = {
-    ESC_KEY: ESC_KEY,
     MIN_TITLE_LENGTH: MIN_TITLE_LENGTH,
     MAX_TITLE_LENGTH: MAX_TITLE_LENGTH,
     MAX_PRICE_VALUE: MAX_PRICE_VALUE,

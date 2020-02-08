@@ -1,4 +1,5 @@
 'use strict';
+  var ESC_KEY = 'Escape';
 
 (function () {
 
@@ -49,6 +50,7 @@
   };
 
   window.util = {
+    ESC_KEY: ESC_KEY,
     getRandomNumber: getRandomNumber,
     getRandomLengthArray: getRandomLengthArray,
     getRandomArrayElement: getRandomArrayElement,

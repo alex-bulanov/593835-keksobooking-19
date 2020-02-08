@@ -4,7 +4,7 @@
 
   var onEscPressClosePopup = function (evt) {
     var popup = document.querySelector('.popup');
-    if (evt.key === window.data.ESC_KEY) {
+    if (evt.key === window.util.ESC_KEY) {
       popup.remove();
     }
     document.removeEventListener('keydown', onEscPressClosePopup);

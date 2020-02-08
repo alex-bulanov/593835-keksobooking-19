@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 var ESC_KEY = 'Escape';
 var MIN_TITLE_LENGTH = 30;
 var MAX_TITLE_LENGTH = 100;
@@ -24,6 +25,10 @@ var apartmentPriceByKey = {
   'house': 5000,
   'bungalo': 0
 };
+*/
+
+//
+
 
 var getNumEnding = function (quantity, aEndings) {
   var sEnding = '';
@@ -89,14 +94,14 @@ var getAdObject = function (index) {
       title: 'Title',
       address: '600, 350',
       price: 200,
-      type: getRandomArrayElement(apartments),
+      type: getRandomArrayElement(window.data.apartments),
       rooms: getRandomNumber(1, 10),
       guests: getRandomNumber(1, 10),
-      checkin: getRandomArrayElement(checkTimes),
-      checkout: getRandomArrayElement(checkTimes),
-      features: getRandomLengthArray(features),
+      checkin: getRandomArrayElement(window.data.checkTimes),
+      checkout: getRandomArrayElement(window.data.checkTimes),
+      features: getRandomLengthArray(window.data.features),
       description: 'тут будет описание',
-      photos: getRandomLengthArray(photos)
+      photos: getRandomLengthArray(window.data.photos)
     },
     location: {
       x: getRandomNumber(pinWidth, mapWidth - pinWidth),
@@ -163,13 +168,13 @@ var getAdCardElement = function (object) {
   }
 
   var currentRoomsValue = object.offer.rooms;
-  var roomString = getNumEnding(currentRoomsValue, pluralForms);
+  var roomString = getNumEnding(currentRoomsValue, window.data.pluralForms);
 
   cardAvatar.src = object.author.avatar;
   cardTitle.textContent = object.offer.title;
   cardAddress.textContent = object.offer.address;
   cardPrice.textContent = object.offer.price + '₽/ночь';
-  cardApartmentsType.textContent = apartmentNamesByKey[object.offer.type];
+  cardApartmentsType.textContent = window.data.apartmentNamesByKey[object.offer.type];
   cardCapacity.textContent = currentRoomsValue + ' ' + roomString + ' '
   + object.offer.guests + guestsSting;
   cardCheckTime.textContent = 'Заезд после ' + object.offer.checkin + ' выезд до ' + object.offer.checkout;
@@ -269,7 +274,7 @@ var removeDisabledFormElements = function (form) {
 var getMinPriceValue = function () {
   var minPriceValue = 0;
   var adHousingTypeField = document.getElementById('type');
-  minPriceValue = apartmentPriceByKey[adHousingTypeField.value];
+  minPriceValue = window.data.apartmentPriceByKey[adHousingTypeField.value];
   return minPriceValue;
 };
 
@@ -331,10 +336,10 @@ var setTimeFieldValue = function () {
 var checkInputTitleValidity = function () {
   var adTitleField = document.getElementById('title');
   var target = adTitleField;
-  if (target.value.length < MIN_TITLE_LENGTH || target.value.length > MAX_TITLE_LENGTH) {
+  if (target.value.length < window.data.MIN_TITLE_LENGTH || target.value.length > window.data.MAX_TITLE_LENGTH) {
     target.setCustomValidity('Имя должно состоять минимум из ' +
-      MIN_TITLE_LENGTH +
-        ' и максимум из ' + MAX_TITLE_LENGTH + ' символов.');
+      window.data.MIN_TITLE_LENGTH +
+        ' и максимум из ' + window.data.MAX_TITLE_LENGTH + ' символов.');
 
   } else {
     target.setCustomValidity('');
@@ -372,18 +377,18 @@ var checkHousingType = function () {
 
   checkInputPriceValidity();
 
-  adPriceField.placeholder = apartmentPriceByKey[adHousingTypeField.value];
+  adPriceField.placeholder = window.data.apartmentPriceByKey[adHousingTypeField.value];
   adPriceField.setAttribute('required', 'required');
-  adPriceField.setAttribute('min', apartmentPriceByKey[adHousingTypeField.value]);
+  adPriceField.setAttribute('min', window.data.apartmentPriceByKey[adHousingTypeField.value]);
 };
 
 var checkInputPriceValidity = function () {
   var adPriceField = document.getElementById('price');
   var priceField = adPriceField;
 
-  if (priceField.value < getMinPriceValue() || priceField.value > MAX_PRICE_VALUE) {
+  if (priceField.value < getMinPriceValue() || priceField.value > window.data.MAX_PRICE_VALUE) {
     priceField.setCustomValidity('Цена не может быть ниже ' +
-      getMinPriceValue() + ' и выше чем ' + MAX_PRICE_VALUE + '.');
+      getMinPriceValue() + ' и выше чем ' + window.data.MAX_PRICE_VALUE + '.');
   } else {
     priceField.setCustomValidity('');
   }
@@ -484,7 +489,7 @@ var onFormChange = function () {
 
 var onEscPressClosePopup = function (evt) {
   var popup = document.querySelector('.popup');
-  if (evt.key === ESC_KEY) {
+  if (evt.key === window.data.ESC_KEY) {
     popup.remove();
   }
   document.removeEventListener('keydown', onEscPressClosePopup);

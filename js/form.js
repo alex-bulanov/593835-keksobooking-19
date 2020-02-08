@@ -31,17 +31,14 @@
     var pinHeight = parseInt(pinMainStyle.height, 10);
     var pinLeftСoordinate = parseInt(pinMainStyle.left, 10);
     var pinTopСoordinate = parseInt(pinMainStyle.top, 10);
-    var addressСoordinateX = 0;
+    var addressСoordinateX = Math.floor(pinLeftСoordinate + pinWidth / 2);
     var addressСoordinateY = 0;
     if (adForm.classList.contains('ad-form--disabled')) {
-      addressСoordinateX = Math.floor(pinLeftСoordinate + pinWidth / 2);
       addressСoordinateY = Math.floor(pinTopСoordinate + pinHeight / 2);
     } else {
-      addressСoordinateX = Math.floor(pinLeftСoordinate + pinWidth / 2);
       addressСoordinateY = Math.floor(pinTopСoordinate + pinHeight + 22);
     }
     var adAddressValue = addressСoordinateX + ', ' + addressСoordinateY;
-    adAddressField.value = adAddressValue;
     adAddressField.value = adAddressValue;
   };
 

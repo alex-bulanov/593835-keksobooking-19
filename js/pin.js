@@ -10,7 +10,7 @@
     var pinWidth = parseInt(pinStyle.width, 10);
     var object = {
       author: {
-        avatar: 'img/avatars/user0' + (index + 1) + '.png'
+        avatar: 'img/avatars/user0' + (parseInt(index, 10) + 1) + '.png'
       },
       offer: {
         title: 'Title',
@@ -44,14 +44,13 @@
     return newArray;
   };
 
-  var getPins = function () {
-    var adsAbjects = getAdObjects();
+  var getPins = function (objects) {
     var pinTemplate = document.getElementById('pin').content.querySelector('.map__pin');
     var pins = [];
 
-    for (var i = 0; i < adsAbjects.length; i++) {
+    for (var i = 0; i < objects.length; i++) {
       var pinElement = pinTemplate.cloneNode(true);
-      var currentObject = adsAbjects[i];
+      var currentObject = objects[i];
       pinElement.querySelector('img').src = currentObject.author.avatar;
       pinElement.querySelector('img').alt = currentObject.offer.title;
       pinElement.style.left = currentObject.location.x + 'px';

@@ -16,11 +16,9 @@
   var adTimeInField = document.getElementById('timein');
   var adTimeOutField = document.getElementById('timeout');
   var adImg = document.getElementById('images');
-  var minPriceValue = 0;
-
 
   var getMinPriceValue = function () {
-    minPriceValue = window.data.apartmentPriceByKey[adHousingTypeField.value];
+    var minPriceValue = window.data.apartmentPriceByKey[adHousingTypeField.value];
     return minPriceValue;
   };
 

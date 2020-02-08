@@ -1,7 +1,7 @@
 'use strict';
-  var ESC_KEY = 'Escape';
 
 (function () {
+  var ESC_KEY = 'Escape';
 
   var getNumEnding = function (quantity, aEndings) {
     var sEnding = '';

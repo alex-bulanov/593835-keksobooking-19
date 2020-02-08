@@ -28,7 +28,6 @@
     map.insertBefore(fragment, mapFilterContainer);
   };
 
-
   var onPinLeftMouseClick = function (evt) {
     var currentPin = evt.currentTarget;
     var currentIndex = currentPin.dataset.index;
@@ -60,5 +59,6 @@
     }
   };
 
+  window.form.setDisabledFormCondition();
   pinMain.addEventListener('click', onMainPinLeftMouseClick);
 })();

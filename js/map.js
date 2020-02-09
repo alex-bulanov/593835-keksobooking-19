@@ -55,10 +55,12 @@
 
       // Отображаем пины.
       renderPins(pinsForRend);
+      pinMain.removeEventListener('click', onMainPinLeftMouseClick);
 
     }
   };
 
   window.form.setDisabledFormCondition();
   pinMain.addEventListener('click', onMainPinLeftMouseClick);
+
 })();

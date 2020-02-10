@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var MAX_PIN_X_OFFSET = 1168;
+  var MIN_PIN_X_OFFSET = -32;
+  var MAX_PIN_Y_OFFSET = 513;
+  var MIN_PIN_Y_OFFSET = 43;
+
   var pinMain = document.querySelector('.map__pin--main');
 
   var onMainPinMouseDown = function (evtDown) {
@@ -26,11 +31,11 @@
         y: moveEvt.clientY
       };
 
-      if ((pinMain.offsetLeft - shift.x) <= window.data.MAX_PIN_X_OFFSET && (pinMain.offsetLeft - shift.x) >= window.data.MIN_PIN_X_OFFSET) {
+      if ((pinMain.offsetLeft - shift.x) <= MAX_PIN_X_OFFSET && (pinMain.offsetLeft - shift.x) >= MIN_PIN_X_OFFSET) {
         pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
       }
 
-      if ((pinMain.offsetTop - shift.y) <= window.data.MAX_PIN_Y_OFFSET && (pinMain.offsetTop - shift.y) >= window.data.MIN_PIN_Y_OFFSET) {
+      if ((pinMain.offsetTop - shift.y) <= MAX_PIN_Y_OFFSET && (pinMain.offsetTop - shift.y) >= MIN_PIN_Y_OFFSET) {
         pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
       }
 

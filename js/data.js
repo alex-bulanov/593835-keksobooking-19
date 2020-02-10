@@ -7,8 +7,8 @@
   var PINS_QUANTITY = 8;
   var MAX_PIN_X_OFFSET = 1168;
   var MIN_PIN_X_OFFSET = -32;
-  var MAX_PIN_Y_OFFSET = 623;
-  var MIN_PIN_Y_OFFSET = 2;
+  var MAX_PIN_Y_OFFSET = 513;
+  var MIN_PIN_Y_OFFSET = 43;
   var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
   var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
   var checkTimes = ['12:00', '13:00', '14:00'];

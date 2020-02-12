@@ -45,7 +45,10 @@
     cardCheckTime.textContent = 'Заезд после ' + object.offer.checkin + ' выезд до ' + object.offer.checkout;
     cardDescription.textContent = object.offer.description;
 
-    if (object.offer.photos.length <= 1) {
+    if (object.offer.photos.length === 0) {
+      window.util.removeAllChildren(cardPhotos);
+
+    } else if (object.offer.photos.length <= 1) {
       cardPhotoImg.src = object.offer.photos;
 
     } else {

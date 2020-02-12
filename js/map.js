@@ -12,6 +12,9 @@
   };
 
   var onLoad = function (data) {
+
+    console.log(data);
+
     var pinsForRend = window.pin.getPins(data);
 
     var onPinLeftMouseClick = function (evt) {

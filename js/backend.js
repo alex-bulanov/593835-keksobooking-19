@@ -33,19 +33,17 @@
       }
     });
 
-    xhr.timeout = 1000;
+    xhr.timeout = 5000;
     xhr.open('GET', URL, true);
 
     xhr.addEventListener('timeout', function () {
-      window.render.renderError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      onErr('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
     xhr.send();
   };
 
   window.backend = {
-    load: load,
-    onLoad: onLoad,
-    onError: onError
+    load: load
   };
 })();

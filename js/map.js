@@ -28,6 +28,14 @@
     map.insertBefore(fragment, mapFilterContainer);
   };
 
+  var onLoad = function (data) {
+    // console.log(data);
+  };
+
+  var onError = function (message) {
+    // console.log(message);
+  };
+
   var onPinLeftMouseClick = function (evt) {
     var currentPin = evt.currentTarget;
     var currentIndex = currentPin.dataset.index;
@@ -48,7 +56,7 @@
 
       // Получаем данные с сервера.
 
-      window.backend.load(window.backend.onLoad, window.backend.onError);
+      window.backend.load(onLoad, onError);
 
       // Активируем форму.
       window.form.setActiveFormCondition();

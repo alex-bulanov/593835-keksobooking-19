@@ -1,14 +1,6 @@
 'use strict';
 
 (function () {
-  var onLoad = function (data) {
-    console.log(data);
-  };
-
-  var onError = function (message) {
-    console.log(message);
-  };
-
   var load = function (onSuc, onErr) {
 
     var xhr = new XMLHttpRequest();

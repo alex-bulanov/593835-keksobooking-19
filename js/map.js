@@ -1,7 +1,8 @@
 'use strict';
 
 (function () {
-  window.events.onPageReset();
+  document.addEventListener('DOMContentLoaded', window.util.pageReset());
+
 
   // var pinMain = document.querySelector('.map__pin--main');
 

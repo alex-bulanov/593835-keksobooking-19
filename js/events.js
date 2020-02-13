@@ -6,6 +6,7 @@
 
   var pinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
+  var mapPins = document.querySelector('.map__pins');
 
   var onLoad = function (data) {
     var pinsForDrawing = window.pin.getPins(data);
@@ -25,7 +26,7 @@
     };
 
     var onLoadShowPins = function (objects) {
-      var mapPins = document.querySelector('.map__pins');
+      // var mapPins = document.querySelector('.map__pins');
       var fragment = document.createDocumentFragment();
 
       for (var i = 0; i < objects.length; i++) {
@@ -40,7 +41,16 @@
     };
 
     onLoadShowPins(pinsForDrawing);
+  };
 
+  var onCheckCondition = function (status) {
+    if (status !== 200) {
+      window.show.showError();
+
+    } else {
+      window.show.showSuccess();
+      onPageReset();
+    }
   };
 
   var onError = function () {
@@ -102,7 +112,33 @@
     }
   };
 
+  var onPageReset = function () {
+    window.form.setDisabledFormCondition();
+    var adForm = document.querySelector('.ad-form');
+    adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+
+    var popup = document.querySelector('.popup');
+
+    if (popup !== null) {
+      popup.remove();
+    }
+
+    var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < adPins.length; j++) {
+      adPins[j].remove();
+    }
+
+    map.classList.add('map--faded');
+
+    pinMain.addEventListener('mousedown', window.drag.onMainPinMouseDown);
+    pinMain.addEventListener('click', window.events.onMainPinLeftMouseClick);
+
+  };
+
   window.events = {
+    onPageReset: onPageReset,
+    onCheckCondition: onCheckCondition,
     onErrorButtonMouseClick: onErrorButtonMouseClick,
     onErrorEcsPress: onErrorEcsPress,
     onSuccessEcsPress: onSuccessEcsPress,

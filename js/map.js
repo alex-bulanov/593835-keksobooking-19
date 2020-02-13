@@ -1,12 +1,13 @@
 'use strict';
 
 (function () {
+  window.events.onPageReset();
 
-  var pinMain = document.querySelector('.map__pin--main');
+  // var pinMain = document.querySelector('.map__pin--main');
 
-  window.form.setDisabledFormCondition();
+  // window.form.setDisabledFormCondition();
 
-  pinMain.addEventListener('mousedown', window.drag.onMainPinMouseDown);
-  pinMain.addEventListener('click', window.events.onMainPinLeftMouseClick);
+  // pinMain.addEventListener('mousedown', window.drag.onMainPinMouseDown);
+  // pinMain.addEventListener('click', window.events.onMainPinLeftMouseClick);
 
 })();

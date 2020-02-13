@@ -200,6 +200,13 @@
     adTimeOutField.addEventListener('change', onChangesTime);
   };
 
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+
+    window.backend.save(new FormData(adForm), window.events.onCheckCondition);
+  });
+
   window.form = {
     adForm: adForm,
     formFieldsets: formFieldsets,

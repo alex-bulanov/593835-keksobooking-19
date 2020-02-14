@@ -2,6 +2,8 @@
 
 (function () {
   var ESC_KEY = 'Escape';
+  var pinMain = document.querySelector('.map__pin--main');
+  var map = document.querySelector('.map');
 
   var getNumEnding = function (quantity, aEndings) {
     var sEnding = '';
@@ -49,8 +51,33 @@
     return arr.slice(0, getRandomNumber(1, arr.length));
   };
 
+  var pageReset = function () {
+    window.form.setDisabledFormCondition();
+    var adForm = document.querySelector('.ad-form');
+    adForm.reset();
+    adForm.classList.add('ad-form--disabled');
+
+    var popup = document.querySelector('.popup');
+
+    if (popup !== null) {
+      popup.remove();
+    }
+
+    var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < adPins.length; j++) {
+      adPins[j].remove();
+    }
+
+    map.classList.add('map--faded');
+
+    pinMain.addEventListener('mousedown', window.drag.onMainPinMouseDown);
+    pinMain.addEventListener('click', window.events.onMainPinLeftMouseClick);
+
+  };
+
   window.util = {
     ESC_KEY: ESC_KEY,
+    pageReset: pageReset,
     getRandomNumber: getRandomNumber,
     getRandomLengthArray: getRandomLengthArray,
     getRandomArrayElement: getRandomArrayElement,

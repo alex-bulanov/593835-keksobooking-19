@@ -55,7 +55,7 @@
       pinElement.querySelector('img').alt = currentObject.offer.title;
       pinElement.style.left = currentObject.location.x + 'px';
       pinElement.style.top = currentObject.location.y + 'px';
-      pinElement.dataset.index = objects[i].curentObjIndex;
+      pinElement.dataset.index = objects[i].currentObjIndex;
       pinElement.addEventListener('click', window.events.onPinLeftMouseClick);
       pins.push(pinElement);
     }

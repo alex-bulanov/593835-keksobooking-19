@@ -29,7 +29,7 @@
     adData = data;
 
     adData.forEach(function (item, i) {
-      item.curentObjIndex = i;
+      item.currentObjIndex = i;
     });
 
     window.show.showPins(adData);

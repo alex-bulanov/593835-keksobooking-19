@@ -11,7 +11,6 @@
   };
 
   var getAdCardElement = function (object) {
-
     var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
     var cardElement = cardTemplate.cloneNode(true);
     var cardClose = cardElement.querySelector('.popup__close');
@@ -34,6 +33,7 @@
 
     var currentRoomsValue = object.offer.rooms;
     var roomString = window.util.getNumEnding(currentRoomsValue, window.data.pluralForms);
+
 
     cardAvatar.src = object.author.avatar;
     cardTitle.textContent = object.offer.title;

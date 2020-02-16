@@ -2,6 +2,8 @@
 
 (function () {
 
+  var MAX_PIN_QUANTITY = 5;
+
   var showError = function () {
     var main = document.querySelector('main');
     var errorTemplate = document.getElementById('error').content.querySelector('.error');
@@ -31,18 +33,23 @@
     map.insertBefore(fragment, mapFilterContainer);
   };
 
-  var showPins = function (objects) {
+  var showPins = function (data) {
     var mapPins = document.querySelector('.map__pins');
+    var popup = document.querySelector('.popup');
+
+    window.util.removeAllChildren(mapPins);
+
+    if (popup !== null) {
+      popup.remove();
+    }
+
+    var pinsForDrawing = window.pin.getPins(data);
+
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < objects.length; i++) {
-      fragment.appendChild(objects[i]);
+    for (var i = 0; i < MAX_PIN_QUANTITY; i++) {
+      fragment.appendChild(pinsForDrawing[i]);
       mapPins.appendChild(fragment);
-    }
-    // Вешаем слушатель.
-    var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < adPins.length; j++) {
-      adPins[j].addEventListener('click', window.events.onPinLeftMouseClick);
     }
   };
 

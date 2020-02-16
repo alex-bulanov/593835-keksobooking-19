@@ -43,13 +43,16 @@
       popup.remove();
     }
 
-    var pinsForDrawing = window.pin.getPins(data);
+    if (data.length > 0) {
+      var dataIndex = data.length;
+      var pinsForDrawing = window.pin.getPins(data);
+      var fragment = document.createDocumentFragment();
 
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < MAX_PIN_QUANTITY; i++) {
-      fragment.appendChild(pinsForDrawing[i]);
-      mapPins.appendChild(fragment);
+      for (var i = 0; (i < MAX_PIN_QUANTITY && dataIndex); i++) {
+        fragment.appendChild(pinsForDrawing[i]);
+        mapPins.appendChild(fragment);
+        dataIndex--;
+      }
     }
   };
 

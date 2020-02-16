@@ -58,7 +58,6 @@
       pinElement.dataset.index = objects[i].curentObjIndex;
       pinElement.addEventListener('click', window.events.onPinLeftMouseClick);
       pins.push(pinElement);
-
     }
 
     return pins;

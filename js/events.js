@@ -4,7 +4,6 @@
 
   var ESC_KEYCODE = 27;
 
-  var pinsForDrawing;
   var adData;
 
   var housinTypeElement = document.getElementById('housing-type');
@@ -109,21 +108,19 @@
   };
 
   var onHousinTypeChange = function () {
-    var housinType = housinTypeElement.value;
+    var housingType = housinTypeElement.value;
 
-    if (housinType === 'any') {
+    if (housingType === 'any') {
       window.show.showPins(adData);
     } else {
-      var sameHousinType = adData.filter(function (it) {
-        return it.offer.type === housinType;
+      var sameHousingType = adData.filter(function (it) {
+        return it.offer.type === housingType;
       });
-
-      window.show.showPins(sameHousinType);
+      window.show.showPins(sameHousingType);
     }
   };
 
   window.events = {
-    pinsForDrawing: pinsForDrawing,
     onCheckCondition: onCheckCondition,
     onErrorButtonMouseClick: onErrorButtonMouseClick,
     onErrorEcsPress: onErrorEscPress,

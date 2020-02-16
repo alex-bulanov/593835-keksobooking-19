@@ -4,43 +4,38 @@
 
   var ESC_KEYCODE = 27;
 
+  var adData;
+
+  var housinTypeElement = document.getElementById('housing-type');
+
   var pinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
-  var mapPins = document.querySelector('.map__pins');
+
+  var onPinLeftMouseClick = function (evt) {
+    var currentPin = evt.currentTarget;
+    var currentIndex = currentPin.dataset.index;
+    var currentPinObject = adData[currentIndex];
+    var currentCard = window.card.getAdCardElement(currentPinObject);
+    var oldCard = document.querySelector('.map__card');
+
+    if (document.contains(oldCard)) {
+      oldCard.remove();
+    }
+
+    window.show.showCard(currentCard);
+  };
 
   var onLoad = function (data) {
-    var pinsForDrawing = window.pin.getPins(data);
+    adData = data;
 
-    var onPinLeftMouseClick = function (evt) {
-      var currentPin = evt.currentTarget;
-      var currentIndex = currentPin.dataset.index;
+    adData.forEach(function (item, i) {
+      item.currentObjIndex = i;
+    });
 
-      var currentPinObject = data[currentIndex];
-      var currentCard = window.card.getAdCardElement(currentPinObject);
-      var oldCard = document.querySelector('.map__card');
-      if (document.contains(oldCard)) {
-        oldCard.remove();
-      }
+    window.show.showPins(adData);
 
-      window.show.showCard(currentCard);
-    };
+    housinTypeElement.addEventListener('change', onHousinTypeChange);
 
-    var onLoadShowPins = function (objects) {
-      // var mapPins = document.querySelector('.map__pins');
-      var fragment = document.createDocumentFragment();
-
-      for (var i = 0; i < objects.length; i++) {
-        fragment.appendChild(objects[i]);
-        mapPins.appendChild(fragment);
-      }
-      // Вешаем слушатель.
-      var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-      for (var j = 0; j < adPins.length; j++) {
-        adPins[j].addEventListener('click', onPinLeftMouseClick);
-      }
-    };
-
-    onLoadShowPins(pinsForDrawing);
   };
 
   var onCheckCondition = function (status) {
@@ -63,7 +58,7 @@
     window.backend.load(onLoad, onError);
   };
 
-  var onErrorEcsPress = function (evt) {
+  var onErrorEscPress = function (evt) {
     var errorMessage = document.querySelector('.error');
     if (evt.keyCode === ESC_KEYCODE) {
       errorMessage.remove();
@@ -112,13 +107,27 @@
     }
   };
 
+  var onHousinTypeChange = function () {
+    var housingType = housinTypeElement.value;
+
+    if (housingType === 'any') {
+      window.show.showPins(adData);
+    } else {
+      var sameHousingType = adData.filter(function (it) {
+        return it.offer.type === housingType;
+      });
+      window.show.showPins(sameHousingType);
+    }
+  };
+
   window.events = {
     onCheckCondition: onCheckCondition,
     onErrorButtonMouseClick: onErrorButtonMouseClick,
-    onErrorEcsPress: onErrorEcsPress,
+    onErrorEcsPress: onErrorEscPress,
     onSuccessEcsPress: onSuccessEcsPress,
     onErrorElementClick: onErrorElementClick,
     onSuccessElementClick: onSuccessElementClick,
     onMainPinLeftMouseClick: onMainPinLeftMouseClick,
+    onPinLeftMouseClick: onPinLeftMouseClick,
   };
 })();

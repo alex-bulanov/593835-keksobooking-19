@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+
+  /* // Мокки
+
   var getAdObject = function (index) {
     var map = document.querySelector('.map');
     var mapStyle = getComputedStyle(map);
@@ -44,6 +47,21 @@
     return newArray;
   };
 
+  */
+
+
+  var removePins = function () {
+    // var mapPins = document.querySelector('.map__pins');
+    // // var popup = document.querySelector('.popup');
+
+    // Удаляем ранее отрисованные пины.
+
+    var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < adPins.length; j++) {
+      adPins[j].remove();
+    }
+  };
+
   var getPins = function (objects) {
     var pinTemplate = document.getElementById('pin').content.querySelector('.map__pin');
     var pins = [];
@@ -64,8 +82,9 @@
   };
 
   window.pin = {
-    getAdObject: getAdObject,
-    getAdObjects: getAdObjects,
-    getPins: getPins
+    // getAdObject: getAdObject,
+    // getAdObjects: getAdObjects,
+    getPins: getPins,
+    removePins: removePins
   };
 })();

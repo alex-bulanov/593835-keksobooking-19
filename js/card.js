@@ -86,8 +86,16 @@
     return cardElement;
   };
 
-  window.card = {
-    getAdCardElement: getAdCardElement
+
+  var removeAdCardElement = function () {
+    var oldCard = document.querySelector('.popup');
+    if (document.contains(oldCard)) {
+      oldCard.remove();
+    }
   };
 
+  window.card = {
+    getAdCardElement: getAdCardElement,
+    removeAdCardElement: removeAdCardElement
+  };
 })();

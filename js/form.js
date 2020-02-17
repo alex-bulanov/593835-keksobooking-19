@@ -25,6 +25,7 @@
   var checkAndSetInputAddress = function () {
 
     adAddressField.setAttribute('readonly', 'readonly');
+
     // Проверяем состояние формы и присваеваем значение полю адреса.
     var pinMain = document.querySelector('.map__pin--main');
     var pinMainStyle = getComputedStyle(pinMain);

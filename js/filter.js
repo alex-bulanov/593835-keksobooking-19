@@ -113,7 +113,6 @@
       });
     }
 
-
     if (housingConditionerElement.checked) {
       sameData = sameData.filter(function (it) {
         return it.offer.features.includes('conditioner');

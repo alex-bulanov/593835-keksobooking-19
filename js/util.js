@@ -5,6 +5,7 @@
   var pinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
 
+
   var getNumEnding = function (quantity, aEndings) {
     var sEnding = '';
     var index = null;

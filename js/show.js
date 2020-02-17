@@ -37,7 +37,10 @@
     var mapPins = document.querySelector('.map__pins');
     var popup = document.querySelector('.popup');
 
-    window.util.removeAllChildren(mapPins);
+    var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var j = 0; j < adPins.length; j++) {
+      adPins[j].remove();
+    }
 
     if (popup !== null) {
       popup.remove();

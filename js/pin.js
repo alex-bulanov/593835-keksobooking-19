@@ -2,60 +2,7 @@
 
 (function () {
 
-  /* // Мокки
-
-  var getAdObject = function (index) {
-    var map = document.querySelector('.map');
-    var mapStyle = getComputedStyle(map);
-    var mapWidth = parseInt(mapStyle.width, 10);
-    var pin = document.querySelector('.map__pin');
-    var pinStyle = getComputedStyle(pin);
-    var pinWidth = parseInt(pinStyle.width, 10);
-    var object = {
-      author: {
-        avatar: 'img/avatars/user0' + (parseInt(index, 10) + 1) + '.png'
-      },
-      offer: {
-        title: 'Title',
-        address: '600, 350',
-        price: 200,
-        type: window.util.getRandomArrayElement(window.data.apartments),
-        rooms: window.util.getRandomNumber(1, 10),
-        guests: window.util.getRandomNumber(1, 10),
-        checkin: window.util.getRandomArrayElement(window.data.checkTimes),
-        checkout: window.util.getRandomArrayElement(window.data.checkTimes),
-        features: window.util.getRandomLengthArray(window.data.features),
-        description: 'тут будет описание',
-        photos: window.util.getRandomLengthArray(window.data.photos)
-      },
-      location: {
-        x: window.util.getRandomNumber(pinWidth, mapWidth - pinWidth),
-        y: window.util.getRandomNumber(130, 630)
-      }
-    };
-
-    return object;
-  };
-
-  var getAdObjects = function () {
-    var newArray = [];
-
-    for (var i = 0; i < window.data.PINS_QUANTITY; i++) {
-      newArray.push(getAdObject(i));
-    }
-
-    return newArray;
-  };
-
-  */
-
-
   var removePins = function () {
-    // var mapPins = document.querySelector('.map__pins');
-    // // var popup = document.querySelector('.popup');
-
-    // Удаляем ранее отрисованные пины.
-
     var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var j = 0; j < adPins.length; j++) {
       adPins[j].remove();
@@ -82,8 +29,6 @@
   };
 
   window.pin = {
-    // getAdObject: getAdObject,
-    // getAdObjects: getAdObjects,
     getPins: getPins,
     removePins: removePins
   };

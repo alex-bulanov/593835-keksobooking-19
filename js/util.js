@@ -54,20 +54,8 @@
 
   var pageReset = function () {
     window.form.setDisabledFormCondition();
-    var adForm = document.querySelector('.ad-form');
-    adForm.reset();
-    adForm.classList.add('ad-form--disabled');
-
-    var popup = document.querySelector('.popup');
-
-    if (popup !== null) {
-      popup.remove();
-    }
-
-    var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var j = 0; j < adPins.length; j++) {
-      adPins[j].remove();
-    }
+    window.card.removeAdCardElement();
+    window.pin.removePins();
 
     map.classList.add('map--faded');
 

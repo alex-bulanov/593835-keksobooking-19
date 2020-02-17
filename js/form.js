@@ -154,6 +154,8 @@
     setDisabledFormElements(adForm);
     setInputFileAttribute();
     checkAndSetInputAddress();
+    adForm.reset();
+    adForm.classList.add('ad-form--disabled');
   };
 
   var removeDisabledAttribute = function (elements) {
@@ -210,44 +212,9 @@
 
   window.form = {
     adForm: adForm,
-    formFieldsets: formFieldsets,
-    formSelects: formSelects,
-    formInputs: formInputs,
-    formButtons: formButtons,
-    adAvatar: adAvatar,
-    adTitleField: adTitleField,
-    adAddressField: adAddressField,
-    adHousingTypeField: adHousingTypeField,
-    adPriceField: adPriceField,
-    adRoomQuantityField: adRoomQuantityField,
-    adGuestsQuantityField: adGuestsQuantityField,
-    adTimeInField: adTimeInField,
-    adTimeOutField: adTimeOutField,
-    adImg: adImg,
-
-    getMinPriceValue: getMinPriceValue,
-
     checkAndSetInputAddress: checkAndSetInputAddress,
-    checkInputPriceValidity: checkInputPriceValidity,
-    checkRoomGuestsValidity: checkRoomGuestsValidity,
-    checkInputTitleValidity: checkInputTitleValidity,
-    checkHousingType: checkHousingType,
-
-    setTimeFieldValue: setTimeFieldValue,
-    setInputFileAttribute: setInputFileAttribute,
-    setDisabledAttribute: setDisabledAttribute,
-    setDisabledFormElements: setDisabledFormElements,
     setActiveFormCondition: setActiveFormCondition,
     setDisabledFormCondition: setDisabledFormCondition,
-
-    removeDisabledAttribute: removeDisabledAttribute,
-    removeDisabledFormElements: removeDisabledFormElements,
-
-    onFormChange: onFormChange,
-    onChangesTime: onChangesTime,
-    onChangesGuestsQuantity: onChangesGuestsQuantity,
-    onInputPriceValidity: onInputPriceValidity,
-    onChangesHousingType: onChangesHousingType,
-    onInputTitleValidity: onInputTitleValidity
+    onFormChange: onFormChange
   };
 })();

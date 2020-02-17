@@ -6,8 +6,6 @@
   var MAX_PRICE_VALUE = 1000000;
 
   var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-  var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-  var checkTimes = ['12:00', '13:00', '14:00'];
   var apartments = ['palace', 'flat', 'house', 'bungalo'];
   var pluralForms = ['комната', 'комнаты', 'комнат'];
 
@@ -32,8 +30,6 @@
     apartmentPriceByKey: apartmentPriceByKey,
     apartmentNamesByKey: apartmentNamesByKey,
     features: features,
-    photos: photos,
-    checkTimes: checkTimes,
     apartments: apartments,
     pluralForms: pluralForms
   };

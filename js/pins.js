@@ -2,14 +2,15 @@
 
 (function () {
 
-  var removePins = function () {
+  var remove = function () {
     var adPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var j = 0; j < adPins.length; j++) {
+      adPins[j].removeEventListener('click', window.events.onPinLeftMouseClick);
       adPins[j].remove();
     }
   };
 
-  var getPins = function (objects) {
+  var create = function (objects) {
     var pinTemplate = document.getElementById('pin').content.querySelector('.map__pin');
     var pins = [];
 
@@ -28,8 +29,8 @@
     return pins;
   };
 
-  window.pin = {
-    getPins: getPins,
-    removePins: removePins
+  window.pins = {
+    create: create,
+    remove: remove
   };
 })();

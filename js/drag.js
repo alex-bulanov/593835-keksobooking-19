@@ -39,7 +39,7 @@
         pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
       }
 
-      window.form.checkAndSetInputAddress();
+      window.form.setInputAddress();
     };
 
     var onMouseUp = function (upEvt) {

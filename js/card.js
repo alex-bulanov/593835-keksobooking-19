@@ -2,15 +2,17 @@
 
 (function () {
 
-  var onEscPressClosePopup = function (evt) {
+  var removeAdCardElement = function () {
     var popup = document.querySelector('.popup');
-    if (evt.key === window.util.ESC_KEY) {
+    if (document.contains(popup)) {
+      var cardClose = popup.querySelector('.popup__close');
+      cardClose.removeEventListener('keydown', window.events.onCloseButtonCard);
+      document.removeEventListener('keydown', window.events.onEscPressCard);
       popup.remove();
     }
-    document.removeEventListener('keydown', onEscPressClosePopup);
   };
 
-  var getAdCardElement = function (object) {
+  var createAdCardElement = function (object) {
     var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
     var cardElement = cardTemplate.cloneNode(true);
     var cardClose = cardElement.querySelector('.popup__close');
@@ -33,7 +35,6 @@
 
     var currentRoomsValue = object.offer.rooms;
     var roomString = window.util.getNumEnding(currentRoomsValue, window.data.pluralForms);
-
 
     cardAvatar.src = object.author.avatar;
     cardTitle.textContent = object.offer.title;
@@ -77,25 +78,13 @@
       cardFeaturesList.appendChild(item);
     }
 
-    cardClose.addEventListener('click', function () {
-      cardElement.remove();
-    });
-
-    document.addEventListener('keydown', onEscPressClosePopup);
+    cardClose.addEventListener('click', window.events.onCardCloseButton);
 
     return cardElement;
   };
 
-
-  var removeAdCardElement = function () {
-    var oldCard = document.querySelector('.popup');
-    if (document.contains(oldCard)) {
-      oldCard.remove();
-    }
-  };
-
   window.card = {
-    getAdCardElement: getAdCardElement,
+    createAdCardElement: createAdCardElement,
     removeAdCardElement: removeAdCardElement
   };
 })();

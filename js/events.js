@@ -6,26 +6,22 @@
 
   var adData;
   var filteredData;
-
-  var housingTypeElement = document.getElementById('housing-type');
-  var housingPriceElement = document.getElementById('housing-price');
-  var housingRoomsElement = document.getElementById('housing-rooms');
-  var housingGuestsElement = document.getElementById('housing-guests');
-  var housingWifiElement = document.getElementById('filter-wifi');
-  var housingDishwasherElement = document.getElementById('filter-dishwasher');
-  var housingParkingElement = document.getElementById('filter-parking');
-  var housingWasherElement = document.getElementById('filter-washer');
-  var housingElevatorElement = document.getElementById('filter-elevator');
-  var housingConditionerElement = document.getElementById('filter-conditioner');
-
   var pinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
+
+  var adTitleField = document.getElementById('title');
+  var adHousingTypeField = document.getElementById('type');
+  var adPriceField = document.getElementById('price');
+  var adRoomQuantityField = document.getElementById('room_number');
+  var adGuestsQuantityField = document.getElementById('capacity');
+  var adTimeInField = document.getElementById('timein');
+  var adTimeOutField = document.getElementById('timeout');
 
   var onPinLeftMouseClick = function (evt) {
     var currentPin = evt.currentTarget;
     var currentIndex = currentPin.dataset.index;
     var currentPinObject = adData[currentIndex];
-    var currentCard = window.card.getAdCardElement(currentPinObject);
+    var currentCard = window.card.createAdCardElement(currentPinObject);
 
     window.card.removeAdCardElement();
     window.show.showCard(currentCard);
@@ -38,20 +34,29 @@
       item.currentObjIndex = i;
     });
 
-    window.pin.removePins();
+    window.pins.remove();
     window.show.showPins(adData);
-
-    housingTypeElement.addEventListener('change', onFilterFieldsChange);
-    housingPriceElement.addEventListener('change', onFilterFieldsChange);
-    housingRoomsElement.addEventListener('change', onFilterFieldsChange);
-    housingGuestsElement.addEventListener('change', onFilterFieldsChange);
-    housingWifiElement.addEventListener('change', onFilterFieldsChange);
-    housingDishwasherElement.addEventListener('change', onFilterFieldsChange);
-    housingParkingElement.addEventListener('change', onFilterFieldsChange);
-    housingWasherElement.addEventListener('change', onFilterFieldsChange);
-    housingElevatorElement.addEventListener('change', onFilterFieldsChange);
-    housingConditionerElement.addEventListener('change', onFilterFieldsChange);
+    window.filter.mapFilter.addEventListener('change', onFilterFieldsChange);
   };
+
+  var onCardEscPress = function (evt) {
+    var popup = document.querySelector('.popup');
+    var cardClose = popup.querySelector('.popup__close');
+    if (evt.key === window.util.ESC_KEY) {
+      popup.remove();
+    }
+    cardClose.removeEventListener('keydown', onCardCloseButton);
+    document.removeEventListener('keydown', onCardEscPress);
+  };
+
+  var onCardCloseButton = function () {
+    var popup = document.querySelector('.popup');
+    var cardClose = popup.querySelector('.popup__close');
+    popup.remove();
+    cardClose.removeEventListener('keydown', onCardCloseButton);
+    document.removeEventListener('keydown', onCardEscPress);
+  };
+
 
   var onCheckCondition = function (status) {
     if (status !== 200) {
@@ -109,28 +114,63 @@
     if (evt.which === 1) {
       map.classList.remove('map--faded');
 
-      // Получаем данные с сервера.
       window.backend.load(onLoad, onError);
 
-      // Активируем форму.
       window.form.setActiveFormCondition();
-      window.form.adForm.addEventListener('change', window.form.onFormChange);
+      window.form.adForm.addEventListener('change', onFormChange);
+      window.form.adReset.addEventListener('click', onFormReset);
 
       pinMain.removeEventListener('click', onMainPinLeftMouseClick);
-
     }
   };
 
   var onFilterFieldsChange = function () {
     window.card.removeAdCardElement();
     filteredData = window.filter.getFilteredData(adData);
-    window.pin.removePins();
+    window.pins.remove();
     if (filteredData.length > 0) {
       window.debounce(window.show.showPins(filteredData));
     }
   };
 
+  var onFormChange = function () {
+    adTitleField.addEventListener('input', onInputTitleValidity);
+    adHousingTypeField.addEventListener('change', onChangesHousingType);
+    adPriceField.addEventListener('input', onInputPriceValidity);
+    adRoomQuantityField.addEventListener('change', onChangesGuestsQuantity);
+    adGuestsQuantityField.addEventListener('change', onChangesGuestsQuantity);
+    adTimeInField.addEventListener('change', onChangesTime);
+    adTimeOutField.addEventListener('change', onChangesTime);
+  };
+
+  var onInputTitleValidity = function () {
+    window.form.checkInputTitleValidity();
+  };
+
+  var onChangesHousingType = function () {
+    window.form.checkHousingType();
+  };
+
+  var onInputPriceValidity = function () {
+    window.form.checkInputPriceValidity();
+  };
+
+  var onChangesGuestsQuantity = function () {
+    window.form.checkRoomGuestsValidity();
+  };
+
+  var onChangesTime = function () {
+    window.form.setTimeFieldValue();
+  };
+
+  var onFormReset = function () {
+    window.util.pageReset();
+    window.form.adReset.removeEventListener('click', onFormReset);
+  };
+
   window.events = {
+    onCardEscPress: onCardEscPress,
+    onCardCloseButton: onCardCloseButton,
     onCheckCondition: onCheckCondition,
     onErrorButtonMouseClick: onErrorButtonMouseClick,
     onErrorEcsPress: onErrorEscPress,
@@ -139,5 +179,6 @@
     onSuccessElementClick: onSuccessElementClick,
     onMainPinLeftMouseClick: onMainPinLeftMouseClick,
     onPinLeftMouseClick: onPinLeftMouseClick,
+    onFormChange: onFormChange,
   };
 })();

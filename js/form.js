@@ -2,6 +2,7 @@
 
 (function () {
   var adForm = document.querySelector('.ad-form');
+  var adReset = document.querySelector('.ad-form__reset');
   var formFieldsets = adForm.querySelectorAll('fieldset');
   var formSelects = adForm.querySelectorAll('select');
   var formInputs = adForm.querySelectorAll('input');
@@ -22,7 +23,7 @@
     return minPriceValue;
   };
 
-  var checkAndSetInputAddress = function () {
+  var setInputAddress = function () {
 
     adAddressField.setAttribute('readonly', 'readonly');
 
@@ -44,16 +45,6 @@
     adAddressField.value = adAddressValue;
   };
 
-  var checkInputPriceValidity = function () {
-    var priceField = adPriceField;
-
-    if (priceField.value < getMinPriceValue() || priceField.value > window.data.MAX_PRICE_VALUE) {
-      priceField.setCustomValidity('Цена не может быть ниже ' +
-        getMinPriceValue() + ' и выше чем ' + window.data.MAX_PRICE_VALUE + '.');
-    } else {
-      priceField.setCustomValidity('');
-    }
-  };
 
   var checkRoomGuestsValidity = function () {
     var target = adGuestsQuantityField;
@@ -107,10 +98,21 @@
   };
 
   var checkHousingType = function () {
-    checkInputPriceValidity();
     adPriceField.placeholder = window.data.apartmentPriceByKey[adHousingTypeField.value];
     adPriceField.setAttribute('required', 'required');
     adPriceField.setAttribute('min', window.data.apartmentPriceByKey[adHousingTypeField.value]);
+    checkInputPriceValidity();
+  };
+
+  var checkInputPriceValidity = function () {
+    var priceField = adPriceField;
+
+    if (priceField.value < getMinPriceValue() || priceField.value > window.data.MAX_PRICE_VALUE) {
+      priceField.setCustomValidity('Цена не может быть ниже ' +
+        getMinPriceValue() + ' и выше чем ' + window.data.MAX_PRICE_VALUE + '.');
+    } else {
+      priceField.setCustomValidity('');
+    }
   };
 
   var setTimeFieldValue = function () {
@@ -144,7 +146,7 @@
     adForm.classList.remove('ad-form--disabled');
     removeDisabledFormElements();
     checkInputTitleValidity();
-    checkAndSetInputAddress();
+    setInputAddress();
     checkHousingType();
     checkRoomGuestsValidity();
     setTimeFieldValue();
@@ -153,9 +155,9 @@
   var setDisabledFormCondition = function () {
     setDisabledFormElements(adForm);
     setInputFileAttribute();
-    checkAndSetInputAddress();
     adForm.reset();
     adForm.classList.add('ad-form--disabled');
+    setInputAddress();
   };
 
   var removeDisabledAttribute = function (elements) {
@@ -171,39 +173,6 @@
     removeDisabledAttribute(formButtons);
   };
 
-  // Ф-ции событий.
-
-  var onInputTitleValidity = function () {
-    checkInputTitleValidity();
-  };
-
-  var onChangesHousingType = function () {
-    checkHousingType();
-  };
-
-  var onInputPriceValidity = function () {
-    checkInputPriceValidity();
-  };
-
-  var onChangesGuestsQuantity = function () {
-    checkRoomGuestsValidity();
-  };
-
-  var onChangesTime = function () {
-    setTimeFieldValue();
-  };
-
-  var onFormChange = function () {
-    adTitleField.addEventListener('input', onInputTitleValidity);
-    adHousingTypeField.addEventListener('change', onChangesHousingType);
-    adPriceField.addEventListener('input', onInputPriceValidity);
-    adRoomQuantityField.addEventListener('change', onChangesGuestsQuantity);
-    adGuestsQuantityField.addEventListener('change', onChangesGuestsQuantity);
-    adTimeInField.addEventListener('change', onChangesTime);
-    adTimeOutField.addEventListener('change', onChangesTime);
-  };
-
-
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
 
@@ -212,9 +181,14 @@
 
   window.form = {
     adForm: adForm,
-    checkAndSetInputAddress: checkAndSetInputAddress,
+    adReset: adReset,
+    setInputAddress: setInputAddress,
     setActiveFormCondition: setActiveFormCondition,
     setDisabledFormCondition: setDisabledFormCondition,
-    onFormChange: onFormChange
+    setTimeFieldValue: setTimeFieldValue,
+    checkInputTitleValidity: checkInputTitleValidity,
+    checkHousingType: checkHousingType,
+    checkInputPriceValidity: checkInputPriceValidity,
+    checkRoomGuestsValidity: checkRoomGuestsValidity
   };
 })();

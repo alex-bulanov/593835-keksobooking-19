@@ -31,11 +31,13 @@
     var fragment = document.createDocumentFragment();
     fragment.appendChild(element);
     map.insertBefore(fragment, mapFilterContainer);
+
+    document.addEventListener('keydown', window.events.onCardEscPress);
   };
 
   var showPins = function (data) {
     var mapPins = document.querySelector('.map__pins');
-    var pinsForDrawing = window.pin.getPins(data);
+    var pinsForDrawing = window.pins.create(data);
     var fragment = document.createDocumentFragment();
     var dataLength = data.length;
 

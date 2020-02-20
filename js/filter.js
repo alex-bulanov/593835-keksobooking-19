@@ -2,17 +2,19 @@
 
 (function () {
 
+  var mapFilter = document.querySelector('.map__filters');
+  var housingTypeElement = document.getElementById('housing-type');
+  var housingPriceElement = document.getElementById('housing-price');
+  var housingRoomsElement = document.getElementById('housing-rooms');
+  var housingGuestsElement = document.getElementById('housing-guests');
+  var housingWifiElement = document.getElementById('filter-wifi');
+  var housingDishwasherElement = document.getElementById('filter-dishwasher');
+  var housingParkingElement = document.getElementById('filter-parking');
+  var housingWasherElement = document.getElementById('filter-washer');
+  var housingElevatorElement = document.getElementById('filter-elevator');
+  var housingConditionerElement = document.getElementById('filter-conditioner');
+
   var getFilteredData = function (data) {
-    var housingTypeElement = document.getElementById('housing-type');
-    var housingPriceElement = document.getElementById('housing-price');
-    var housingRoomsElement = document.getElementById('housing-rooms');
-    var housingGuestsElement = document.getElementById('housing-guests');
-    var housingWifiElement = document.getElementById('filter-wifi');
-    var housingDishwasherElement = document.getElementById('filter-dishwasher');
-    var housingParkingElement = document.getElementById('filter-parking');
-    var housingWasherElement = document.getElementById('filter-washer');
-    var housingElevatorElement = document.getElementById('filter-elevator');
-    var housingConditionerElement = document.getElementById('filter-conditioner');
 
     var housingType = housingTypeElement.value;
     var housingPrice = housingPriceElement.value;
@@ -123,6 +125,7 @@
   };
 
   window.filter = {
+    mapFilter: mapFilter,
     getFilteredData: getFilteredData
   };
 })();

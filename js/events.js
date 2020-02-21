@@ -5,23 +5,25 @@
   var ESC_KEYCODE = 27;
 
   var adData;
-
-  var housinTypeElement = document.getElementById('housing-type');
-
+  var filteredData;
   var pinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
+
+  var adTitleField = document.getElementById('title');
+  var adHousingTypeField = document.getElementById('type');
+  var adPriceField = document.getElementById('price');
+  var adRoomQuantityField = document.getElementById('room_number');
+  var adGuestsQuantityField = document.getElementById('capacity');
+  var adTimeInField = document.getElementById('timein');
+  var adTimeOutField = document.getElementById('timeout');
 
   var onPinLeftMouseClick = function (evt) {
     var currentPin = evt.currentTarget;
     var currentIndex = currentPin.dataset.index;
     var currentPinObject = adData[currentIndex];
-    var currentCard = window.card.getAdCardElement(currentPinObject);
-    var oldCard = document.querySelector('.map__card');
+    var currentCard = window.card.createAdCardElement(currentPinObject);
 
-    if (document.contains(oldCard)) {
-      oldCard.remove();
-    }
-
+    window.card.removeAdCardElement();
     window.show.showCard(currentCard);
   };
 
@@ -32,11 +34,29 @@
       item.currentObjIndex = i;
     });
 
+    window.pins.remove();
     window.show.showPins(adData);
-
-    housinTypeElement.addEventListener('change', onHousinTypeChange);
-
+    window.filter.mapFilter.addEventListener('change', onFilterFieldsChange);
   };
+
+  var onCardEscPress = function (evt) {
+    var popup = document.querySelector('.popup');
+    var cardClose = popup.querySelector('.popup__close');
+    if (evt.key === window.util.ESC_KEY) {
+      popup.remove();
+    }
+    cardClose.removeEventListener('keydown', onCardCloseButton);
+    document.removeEventListener('keydown', onCardEscPress);
+  };
+
+  var onCardCloseButton = function () {
+    var popup = document.querySelector('.popup');
+    var cardClose = popup.querySelector('.popup__close');
+    popup.remove();
+    cardClose.removeEventListener('keydown', onCardCloseButton);
+    document.removeEventListener('keydown', onCardEscPress);
+  };
+
 
   var onCheckCondition = function (status) {
     if (status !== 200) {
@@ -76,7 +96,6 @@
     }
   };
 
-
   var onErrorElementClick = function () {
     var errorMessage = document.querySelector('.error');
     errorMessage.remove();
@@ -95,32 +114,63 @@
     if (evt.which === 1) {
       map.classList.remove('map--faded');
 
-      // Получаем данные с сервера.
       window.backend.load(onLoad, onError);
 
-      // Активируем форму.
       window.form.setActiveFormCondition();
-      window.form.adForm.addEventListener('change', window.form.onFormChange);
+      window.form.adForm.addEventListener('change', onFormChange);
+      window.form.adReset.addEventListener('click', onFormReset);
 
       pinMain.removeEventListener('click', onMainPinLeftMouseClick);
-
     }
   };
 
-  var onHousinTypeChange = function () {
-    var housingType = housinTypeElement.value;
-
-    if (housingType === 'any') {
-      window.show.showPins(adData);
-    } else {
-      var sameHousingType = adData.filter(function (it) {
-        return it.offer.type === housingType;
-      });
-      window.show.showPins(sameHousingType);
+  var onFilterFieldsChange = function () {
+    window.card.removeAdCardElement();
+    filteredData = window.filter.getFilteredData(adData);
+    window.pins.remove();
+    if (filteredData.length > 0) {
+      window.debounce(window.show.showPins(filteredData));
     }
+  };
+
+  var onFormChange = function () {
+    adTitleField.addEventListener('input', onInputTitleValidity);
+    adHousingTypeField.addEventListener('change', onChangesHousingType);
+    adPriceField.addEventListener('input', onInputPriceValidity);
+    adRoomQuantityField.addEventListener('change', onChangesGuestsQuantity);
+    adGuestsQuantityField.addEventListener('change', onChangesGuestsQuantity);
+    adTimeInField.addEventListener('change', onChangesTime);
+    adTimeOutField.addEventListener('change', onChangesTime);
+  };
+
+  var onInputTitleValidity = function () {
+    window.form.checkInputTitleValidity();
+  };
+
+  var onChangesHousingType = function () {
+    window.form.checkHousingType();
+  };
+
+  var onInputPriceValidity = function () {
+    window.form.checkInputPriceValidity();
+  };
+
+  var onChangesGuestsQuantity = function () {
+    window.form.checkRoomGuestsValidity();
+  };
+
+  var onChangesTime = function () {
+    window.form.setTimeFieldValue();
+  };
+
+  var onFormReset = function () {
+    window.util.pageReset();
+    window.form.adReset.removeEventListener('click', onFormReset);
   };
 
   window.events = {
+    onCardEscPress: onCardEscPress,
+    onCardCloseButton: onCardCloseButton,
     onCheckCondition: onCheckCondition,
     onErrorButtonMouseClick: onErrorButtonMouseClick,
     onErrorEcsPress: onErrorEscPress,
@@ -129,5 +179,6 @@
     onSuccessElementClick: onSuccessElementClick,
     onMainPinLeftMouseClick: onMainPinLeftMouseClick,
     onPinLeftMouseClick: onPinLeftMouseClick,
+    onFormChange: onFormChange,
   };
 })();

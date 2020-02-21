@@ -31,28 +31,23 @@
     var fragment = document.createDocumentFragment();
     fragment.appendChild(element);
     map.insertBefore(fragment, mapFilterContainer);
+
+    document.addEventListener('keydown', window.events.onCardEscPress);
   };
 
   var showPins = function (data) {
     var mapPins = document.querySelector('.map__pins');
-    var popup = document.querySelector('.popup');
+    var pinsForDrawing = window.pins.create(data);
+    var fragment = document.createDocumentFragment();
+    var dataLength = data.length;
 
-    window.util.removeAllChildren(mapPins);
+    // Показываем пинов не больше MAX_PIN_QUANTITY.
+    // Проверка на кол-во пинов.
 
-    if (popup !== null) {
-      popup.remove();
-    }
-
-    if (data.length > 0) {
-      var dataIndex = data.length;
-      var pinsForDrawing = window.pin.getPins(data);
-      var fragment = document.createDocumentFragment();
-
-      for (var i = 0; (i < MAX_PIN_QUANTITY && dataIndex); i++) {
-        fragment.appendChild(pinsForDrawing[i]);
-        mapPins.appendChild(fragment);
-        dataIndex--;
-      }
+    for (var i = 0; (i < MAX_PIN_QUANTITY && dataLength); i++) {
+      fragment.appendChild(pinsForDrawing[i]);
+      mapPins.appendChild(fragment);
+      dataLength--;
     }
   };
 

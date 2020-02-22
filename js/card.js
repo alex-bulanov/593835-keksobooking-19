@@ -4,7 +4,7 @@
 
   var removeAdCardElement = function () {
     var popup = document.querySelector('.popup');
-    if (document.contains(popup)) {
+    if (popup !== null) {
       var cardClose = popup.querySelector('.popup__close');
       cardClose.removeEventListener('keydown', window.events.onCloseButtonCard);
       document.removeEventListener('keydown', window.events.onEscPressCard);

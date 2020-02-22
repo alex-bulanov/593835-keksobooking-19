@@ -41,9 +41,6 @@
     var fragment = document.createDocumentFragment();
     var dataLength = data.length;
 
-    // Показываем пинов не больше MAX_PIN_QUANTITY.
-    // Проверка на кол-во пинов.
-
     for (var i = 0; (i < MAX_PIN_QUANTITY && dataLength); i++) {
       fragment.appendChild(pinsForDrawing[i]);
       mapPins.appendChild(fragment);

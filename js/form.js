@@ -2,6 +2,7 @@
 
 (function () {
   var adForm = document.querySelector('.ad-form');
+  var adPhoto = document.querySelector('.ad-form__photo');
   var adReset = document.querySelector('.ad-form__reset');
   var formFieldsets = adForm.querySelectorAll('fieldset');
   var formSelects = adForm.querySelectorAll('select');
@@ -24,10 +25,8 @@
   };
 
   var setInputAddress = function () {
-
     adAddressField.setAttribute('readonly', 'readonly');
 
-    // Проверяем состояние формы и присваеваем значение полю адреса.
     var pinMain = document.querySelector('.map__pin--main');
     var pinMainStyle = getComputedStyle(pinMain);
     var pinWidth = parseInt(pinMainStyle.width, 10);
@@ -156,6 +155,8 @@
     setDisabledFormElements(adForm);
     setInputFileAttribute();
     adForm.reset();
+    window.filter.mapFilter.reset();
+    window.util.removeAllChildren(adPhoto);
     adForm.classList.add('ad-form--disabled');
     setInputAddress();
   };

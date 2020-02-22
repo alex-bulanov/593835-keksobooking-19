@@ -4,9 +4,6 @@
   var START_MAIN_PIN_LEFT_COORINATE = 570;
   var START_MAIN_PIN_TOP_COORINATE = 375;
   var ESC_KEY = 'Escape';
-  var pinMain = document.querySelector('.map__pin--main');
-  var map = document.querySelector('.map');
-
 
   var getNumEnding = function (quantity, aEndings) {
     var sEnding = '';
@@ -55,6 +52,8 @@
   };
 
   var pageReset = function () {
+    var pinMain = document.querySelector('.map__pin--main');
+    var map = document.querySelector('.map');
     window.card.removeAdCardElement();
     window.pins.remove();
     map.classList.add('map--faded');

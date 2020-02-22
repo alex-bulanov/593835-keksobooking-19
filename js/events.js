@@ -3,19 +3,8 @@
 (function () {
 
   var ESC_KEYCODE = 27;
-
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
   var adData;
-  var filteredData;
-  var pinMain = document.querySelector('.map__pin--main');
-  var map = document.querySelector('.map');
-
-  var adTitleField = document.getElementById('title');
-  var adHousingTypeField = document.getElementById('type');
-  var adPriceField = document.getElementById('price');
-  var adRoomQuantityField = document.getElementById('room_number');
-  var adGuestsQuantityField = document.getElementById('capacity');
-  var adTimeInField = document.getElementById('timein');
-  var adTimeOutField = document.getElementById('timeout');
 
   var onPinLeftMouseClick = function (evt) {
     var currentPin = evt.currentTarget;
@@ -111,11 +100,13 @@
   };
 
   var onMainPinLeftMouseClick = function (evt) {
+    var pinMain = document.querySelector('.map__pin--main');
+    var map = document.querySelector('.map');
+
     if (evt.which === 1) {
       map.classList.remove('map--faded');
 
       window.backend.load(onLoad, onError);
-
       window.form.setActiveFormCondition();
       window.form.adForm.addEventListener('change', onFormChange);
       window.form.adReset.addEventListener('click', onFormReset);
@@ -126,7 +117,7 @@
 
   var onFilterFieldsChange = function () {
     window.card.removeAdCardElement();
-    filteredData = window.filter.getFilteredData(adData);
+    var filteredData = window.filter.getFilteredData(adData);
     window.pins.remove();
     if (filteredData.length > 0) {
       window.debounce(window.show.showPins(filteredData));
@@ -134,6 +125,14 @@
   };
 
   var onFormChange = function () {
+    var adTitleField = document.getElementById('title');
+    var adHousingTypeField = document.getElementById('type');
+    var adPriceField = document.getElementById('price');
+    var adRoomQuantityField = document.getElementById('room_number');
+    var adGuestsQuantityField = document.getElementById('capacity');
+    var adTimeInField = document.getElementById('timein');
+    var adTimeOutField = document.getElementById('timeout');
+
     adTitleField.addEventListener('input', onInputTitleValidity);
     adHousingTypeField.addEventListener('change', onChangesHousingType);
     adPriceField.addEventListener('input', onInputPriceValidity);
@@ -168,6 +167,48 @@
     window.form.adReset.removeEventListener('click', onFormReset);
   };
 
+  var onFileChooserAvatar = function () {
+    var file = window.photo.fileChooserAvatar.files[0];
+    var fileName = file.name.toLowerCase();
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+      reader.addEventListener('load', function () {
+        window.photo.preview.src = reader.result;
+      });
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+  var onFileChooserImages = function () {
+    var file = window.photo.fileChooserImages.files[0];
+    var fileName = file.name.toLowerCase();
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+    if (matches) {
+      var reader = new FileReader();
+      var fragment = document.createDocumentFragment();
+      var element = document.createElement('IMG');
+      element.style.width = '70px';
+      element.style.height = '70px';
+      element.alt = 'Фотография жилья';
+      fragment.appendChild(element);
+
+      reader.addEventListener('load', function () {
+        element.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
+
+    window.photo.adPhoto.appendChild(fragment);
+  };
+
   window.events = {
     onCardEscPress: onCardEscPress,
     onCardCloseButton: onCardCloseButton,
@@ -180,5 +221,7 @@
     onMainPinLeftMouseClick: onMainPinLeftMouseClick,
     onPinLeftMouseClick: onPinLeftMouseClick,
     onFormChange: onFormChange,
+    onFileChooserAvatar: onFileChooserAvatar,
+    onFileChooserImages: onFileChooserImages
   };
 })();

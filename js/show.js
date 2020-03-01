@@ -11,7 +11,7 @@
     var errorButtonClose = errorElement.querySelector('.error__button');
 
     errorButtonClose.addEventListener('click', window.events.onErrorButtonMouseClick);
-    document.addEventListener('keydown', window.events.onErrorEcsPress);
+    document.addEventListener('keydown', window.events.onErrorEscPress);
     errorElement.addEventListener('click', window.events.onErrorElementClick);
     main.appendChild(errorElement);
   };
@@ -20,7 +20,7 @@
     var main = document.querySelector('main');
     var successTemplate = document.getElementById('success').content.querySelector('.success');
     var successElement = successTemplate.cloneNode(true);
-    document.addEventListener('keydown', window.events.onSuccessEcsPress);
+    document.addEventListener('keydown', window.events.onSuccessEscPress);
     successElement.addEventListener('click', window.events.onSuccessElementClick);
     main.appendChild(successElement);
   };

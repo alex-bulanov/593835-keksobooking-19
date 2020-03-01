@@ -72,15 +72,15 @@
     if (evt.keyCode === ESC_KEYCODE) {
       errorMessage.remove();
       errorMessage.removeEventListener('click', window.events.onErrorElementClick);
-      document.removeEventListener('keydown', window.events.onErrorEcsPress);
+      document.removeEventListener('keydown', window.events.onErrorEscPress);
     }
   };
 
-  var onSuccessEcsPress = function (evt) {
+  var onSuccessEscPress = function (evt) {
     var successMessage = document.querySelector('.success');
     if (evt.keyCode === ESC_KEYCODE) {
       successMessage.remove();
-      document.removeEventListener('keydown', window.events.onSuccessEcsPress);
+      document.removeEventListener('keydown', window.events.onSuccessEscPress);
       successMessage.removeEventListener('click', window.events.onErrorElementClick);
     }
   };
@@ -89,14 +89,14 @@
     var errorMessage = document.querySelector('.error');
     errorMessage.remove();
     errorMessage.removeEventListener('click', window.events.onErrorElementClick);
-    document.removeEventListener('keydown', window.events.onErrorEcsPress);
+    document.removeEventListener('keydown', window.events.onErrorEscPress);
   };
 
   var onSuccessElementClick = function () {
     var successMessage = document.querySelector('.success');
     successMessage.remove();
     successMessage.removeEventListener('click', window.events.onErrorElementClick);
-    document.removeEventListener('keydown', window.events.onSuccessEcsPress);
+    document.removeEventListener('keydown', window.events.onSuccessEscPress);
   };
 
   var onMainPinLeftMouseClick = function (evt) {
@@ -214,8 +214,8 @@
     onCardCloseButton: onCardCloseButton,
     onCheckCondition: onCheckCondition,
     onErrorButtonMouseClick: onErrorButtonMouseClick,
-    onErrorEcsPress: onErrorEscPress,
-    onSuccessEcsPress: onSuccessEcsPress,
+    onErrorEscPress: onErrorEscPress,
+    onSuccessEscPress: onSuccessEscPress,
     onErrorElementClick: onErrorElementClick,
     onSuccessElementClick: onSuccessElementClick,
     onMainPinLeftMouseClick: onMainPinLeftMouseClick,

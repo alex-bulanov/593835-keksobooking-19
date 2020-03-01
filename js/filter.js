@@ -72,24 +72,6 @@
       });
     }
 
-    if (housingWifiElement.checked) {
-      sameData = sameData.filter(function (it) {
-        return it.offer.features.includes('wifi');
-      });
-    }
-
-    if (housingWifiElement.checked) {
-      sameData = sameData.filter(function (it) {
-        return it.offer.features.includes('wifi');
-      });
-    }
-
-    if (housingWifiElement.checked) {
-      sameData = sameData.filter(function (it) {
-        return it.offer.features.includes('wifi');
-      });
-    }
-
     if (housingDishwasherElement.checked) {
       sameData = sameData.filter(function (it) {
         return it.offer.features.includes('dishwasher');

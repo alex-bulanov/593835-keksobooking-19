@@ -3,9 +3,9 @@
 (function () {
 
   var MAX_PIN_QUANTITY = 5;
+  var main = document.querySelector('main');
 
   var showError = function () {
-    var main = document.querySelector('main');
     var errorTemplate = document.getElementById('error').content.querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);
     var errorButtonClose = errorElement.querySelector('.error__button');
@@ -17,7 +17,6 @@
   };
 
   var showSuccess = function () {
-    var main = document.querySelector('main');
     var successTemplate = document.getElementById('success').content.querySelector('.success');
     var successElement = successTemplate.cloneNode(true);
     document.addEventListener('keydown', window.events.onSuccessEscPress);

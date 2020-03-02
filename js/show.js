@@ -38,12 +38,10 @@
     var mapPins = document.querySelector('.map__pins');
     var pinsForDrawing = window.pins.create(data);
     var fragment = document.createDocumentFragment();
-    var dataLength = data.length;
 
-    for (var i = 0; (i < MAX_PIN_QUANTITY && dataLength); i++) {
+    for (var i = 0; (i < MAX_PIN_QUANTITY && i < data.length); i++) {
       fragment.appendChild(pinsForDrawing[i]);
       mapPins.appendChild(fragment);
-      dataLength--;
     }
   };
 

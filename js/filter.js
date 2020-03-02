@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var LOW_PRICE = 10000;
+  var HIGH_PRICE = 50000;
+
   var mapFilter = document.querySelector('.map__filters');
 
   var getFilteredData = function (data) {
@@ -31,17 +34,17 @@
     switch (housingPrice) {
       case ('low'):
         sameData = sameData.filter(function (it) {
-          return it.offer.price < 10000;
+          return it.offer.price < LOW_PRICE;
         });
         break;
       case ('middle'):
         sameData = sameData.filter(function (it) {
-          return (it.offer.price >= 10000 && it.offer.price <= 50000);
+          return (it.offer.price >= LOW_PRICE && it.offer.price <= HIGH_PRICE);
         });
         break;
       case ('high'):
         sameData = sameData.filter(function (it) {
-          return it.offer.price > 50000;
+          return it.offer.price > HIGH_PRICE;
         });
         break;
       case ('any'):

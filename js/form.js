@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var pinMainEdge = 22;
+  var pinMainEdgeHeight = 22;
 
   var adForm = document.querySelector('.ad-form');
   var adPhoto = document.querySelector('.ad-form__photo');
@@ -40,7 +40,7 @@
     if (adForm.classList.contains('ad-form--disabled')) {
       addressСoordinateY = Math.floor(pinTopСoordinate + pinHeight / 2);
     } else {
-      addressСoordinateY = Math.floor(pinTopСoordinate + pinHeight + pinMainEdge);
+      addressСoordinateY = Math.floor(pinTopСoordinate + pinHeight + pinMainEdgeHeight);
     }
     var adAddressValue = addressСoordinateX + ', ' + addressСoordinateY;
     adAddressField.value = adAddressValue;

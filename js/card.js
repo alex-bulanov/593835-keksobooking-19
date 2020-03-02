@@ -34,14 +34,14 @@
     }
 
     var currentRoomsValue = object.offer.rooms;
-    var roomString = window.util.getWordEndingString(currentRoomsValue, window.data.pluralForms);
+    var roomStringEnding = window.util.getWordEndingString(currentRoomsValue, window.data.pluralForms);
 
     cardAvatar.src = object.author.avatar;
     cardTitle.textContent = object.offer.title;
     cardAddress.textContent = object.offer.address;
     cardPrice.textContent = object.offer.price + '₽/ночь';
     cardApartmentsType.textContent = window.data.apartmentNamesByKey[object.offer.type];
-    cardCapacity.textContent = currentRoomsValue + ' ' + roomString + ' для '
+    cardCapacity.textContent = currentRoomsValue + ' ' + roomStringEnding + ' для '
     + object.offer.guests + guestsSting;
     cardCheckTime.textContent = 'Заезд после ' + object.offer.checkin + ' выезд до ' + object.offer.checkout;
     cardDescription.textContent = object.offer.description;

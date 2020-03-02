@@ -29,19 +29,19 @@
     var cardAvatar = cardElement.querySelector('.popup__avatar');
     var guestsSting = ' гостя';
 
-    if (object.offer.guests > 1) {
+    if (object.offer.guests > 1 || object.offer.guests === 0) {
       guestsSting = ' гостей';
     }
 
     var currentRoomsValue = object.offer.rooms;
-    var roomString = window.util.getNumEnding(currentRoomsValue, window.data.pluralForms);
+    var roomString = window.util.getWordEndingString(currentRoomsValue, window.data.pluralForms);
 
     cardAvatar.src = object.author.avatar;
     cardTitle.textContent = object.offer.title;
     cardAddress.textContent = object.offer.address;
     cardPrice.textContent = object.offer.price + '₽/ночь';
     cardApartmentsType.textContent = window.data.apartmentNamesByKey[object.offer.type];
-    cardCapacity.textContent = currentRoomsValue + ' ' + roomString + ' '
+    cardCapacity.textContent = currentRoomsValue + ' ' + roomString + ' для '
     + object.offer.guests + guestsSting;
     cardCheckTime.textContent = 'Заезд после ' + object.offer.checkin + ' выезд до ' + object.offer.checkout;
     cardDescription.textContent = object.offer.description;

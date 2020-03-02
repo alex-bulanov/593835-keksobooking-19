@@ -4,7 +4,6 @@
 
   var preview = document.querySelector('.ad-form-header__preview img');
   var adPhoto = document.querySelector('.ad-form__photo');
-
   var fileChooserAvatar = document.getElementById('avatar');
   var fileChooserImages = document.getElementById('images');
 

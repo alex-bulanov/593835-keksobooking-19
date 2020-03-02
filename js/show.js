@@ -4,9 +4,13 @@
 
   var MAX_PIN_QUANTITY = 5;
   var main = document.querySelector('main');
+  var errorTemplate = document.getElementById('error').content.querySelector('.error');
+  var successTemplate = document.getElementById('success').content.querySelector('.success');
+  var map = document.querySelector('.map');
+  var mapFilterContainer = document.querySelector('.map__filters-container');
+  var mapPins = document.querySelector('.map__pins');
 
   var showError = function () {
-    var errorTemplate = document.getElementById('error').content.querySelector('.error');
     var errorElement = errorTemplate.cloneNode(true);
     var errorButtonClose = errorElement.querySelector('.error__button');
 
@@ -17,7 +21,6 @@
   };
 
   var showSuccess = function () {
-    var successTemplate = document.getElementById('success').content.querySelector('.success');
     var successElement = successTemplate.cloneNode(true);
     document.addEventListener('keydown', window.events.onSuccessEscPress);
     successElement.addEventListener('click', window.events.onSuccessElementClick);
@@ -25,8 +28,6 @@
   };
 
   var showCard = function (element) {
-    var map = document.querySelector('.map');
-    var mapFilterContainer = document.querySelector('.map__filters-container');
     var fragment = document.createDocumentFragment();
     fragment.appendChild(element);
     map.insertBefore(fragment, mapFilterContainer);
@@ -35,7 +36,6 @@
   };
 
   var showPins = function (data) {
-    var mapPins = document.querySelector('.map__pins');
     var pinsForDrawing = window.pins.create(data);
     var fragment = document.createDocumentFragment();
 

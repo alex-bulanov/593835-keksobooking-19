@@ -5,31 +5,31 @@
   var START_MAIN_PIN_TOP_COORINATE = 375;
   var ESC_KEY = 'Escape';
 
-  var getNumEnding = function (quantity, aEndings) {
-    var sEnding = '';
+  var getWordEndingString = function (roomsQuantity, words) {
+    var endingWord = '';
     var index = null;
 
-    quantity = quantity % 100;
+    roomsQuantity = roomsQuantity % 100;
 
-    if (quantity >= 11 && quantity <= 19) {
-      sEnding = aEndings[2];
+    if (roomsQuantity >= 11 && roomsQuantity <= 19) {
+      endingWord = words[2];
     } else {
-      index = quantity % 10;
+      index = roomsQuantity % 10;
       switch (index) {
         case (1):
-          sEnding = aEndings[0];
+          endingWord = words[0];
           break;
         case (2):
         case (3):
         case (4):
-          sEnding = aEndings[1];
+          endingWord = words[1];
           break;
         default:
-          sEnding = aEndings[2];
+          endingWord = words[2];
       }
     }
 
-    return sEnding;
+    return endingWord;
   };
 
   var removeAllChildren = function (element) {
@@ -72,7 +72,7 @@
     getRandomLengthArray: getRandomLengthArray,
     getRandomArrayElement: getRandomArrayElement,
     removeAllChildren: removeAllChildren,
-    getNumEnding: getNumEnding
+    getWordEndingString: getWordEndingString
   };
 })();
 

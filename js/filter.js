@@ -7,16 +7,17 @@
   var mapFilter = document.querySelector('.map__filters');
 
   var getFilteredData = function (data) {
-    var housingTypeElement = document.getElementById('housing-type');
-    var housingPriceElement = document.getElementById('housing-price');
-    var housingRoomsElement = document.getElementById('housing-rooms');
-    var housingGuestsElement = document.getElementById('housing-guests');
-    var housingWifiElement = document.getElementById('filter-wifi');
-    var housingDishwasherElement = document.getElementById('filter-dishwasher');
-    var housingParkingElement = document.getElementById('filter-parking');
-    var housingWasherElement = document.getElementById('filter-washer');
-    var housingElevatorElement = document.getElementById('filter-elevator');
-    var housingConditionerElement = document.getElementById('filter-conditioner');
+
+    var housingTypeElement = mapFilter.querySelector('#housing-type');
+    var housingPriceElement = mapFilter.querySelector('#housing-price');
+    var housingRoomsElement = mapFilter.querySelector('#housing-rooms');
+    var housingGuestsElement = mapFilter.querySelector('#housing-guests');
+    var housingWifiElement = mapFilter.querySelector('#filter-wifi');
+    var housingDishwasherElement = mapFilter.querySelector('#filter-dishwasher');
+    var housingParkingElement = mapFilter.querySelector('#filter-parking');
+    var housingWasherElement = mapFilter.querySelector('#filter-washer');
+    var housingElevatorElement = mapFilter.querySelector('#filter-elevator');
+    var housingConditionerElement = mapFilter.querySelector('#filter-conditioner');
 
     var housingType = housingTypeElement.value;
     var housingPrice = housingPriceElement.value;

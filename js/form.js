@@ -4,22 +4,23 @@
   var pinMainEdgeHeight = 22;
 
   var adForm = document.querySelector('.ad-form');
-  var adPhoto = document.querySelector('.ad-form__photo');
-  var adReset = document.querySelector('.ad-form__reset');
+  var adPhoto = adForm.querySelector('.ad-form__photo');
+  var adReset = adForm.querySelector('.ad-form__reset');
   var formFieldsets = adForm.querySelectorAll('fieldset');
   var formSelects = adForm.querySelectorAll('select');
   var formInputs = adForm.querySelectorAll('input');
   var formButtons = adForm.querySelectorAll('button');
-  var adAvatar = document.getElementById('avatar');
-  var adTitleField = document.getElementById('title');
-  var adAddressField = document.getElementById('address');
-  var adHousingTypeField = document.getElementById('type');
-  var adPriceField = document.getElementById('price');
-  var adRoomQuantityField = document.getElementById('room_number');
-  var adGuestsQuantityField = document.getElementById('capacity');
-  var adTimeInField = document.getElementById('timein');
-  var adTimeOutField = document.getElementById('timeout');
-  var adImg = document.getElementById('images');
+
+  var adAvatar = adForm.querySelector('#avatar');
+  var adTitleField = adForm.querySelector('#title');
+  var adAddressField = adForm.querySelector('#address');
+  var adHousingTypeField = adForm.querySelector('#type');
+  var adPriceField = adForm.querySelector('#price');
+  var adRoomQuantityField = adForm.querySelector('#room_number');
+  var adGuestsQuantityField = adForm.querySelector('#capacity');
+  var adTimeInField = adForm.querySelector('#timein');
+  var adTimeOutField = adForm.querySelector('#timeout');
+  var adImg = adForm.querySelector('#images');
 
   var getMinPriceValue = function () {
     var minPriceValue = window.data.apartmentPriceByKey[adHousingTypeField.value];

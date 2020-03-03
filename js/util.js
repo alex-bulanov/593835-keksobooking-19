@@ -37,7 +37,7 @@
     var max = arr.length - 1;
     var min = 0;
 
-    return arr[Math.floor(Math.random() * (max - min + 1) + min)];
+    return arr[getRandomNumber(min, max)];
   };
 
   var getRandomLengthArray = function (arr) {

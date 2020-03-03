@@ -125,13 +125,13 @@
   };
 
   var onFormChange = function () {
-    var adTitleField = document.getElementById('title');
-    var adHousingTypeField = document.getElementById('type');
-    var adPriceField = document.getElementById('price');
-    var adRoomQuantityField = document.getElementById('room_number');
-    var adGuestsQuantityField = document.getElementById('capacity');
-    var adTimeInField = document.getElementById('timein');
-    var adTimeOutField = document.getElementById('timeout');
+    var adTitleField = document.querySelector('#title');
+    var adHousingTypeField = document.querySelector('#type');
+    var adPriceField = document.querySelector('#price');
+    var adRoomQuantityField = document.querySelector('#room_number');
+    var adGuestsQuantityField = document.querySelector('#capacity');
+    var adTimeInField = document.querySelector('#timein');
+    var adTimeOutField = document.querySelector('#timeout');
 
     adTitleField.addEventListener('input', onInputTitleValidity);
     adHousingTypeField.addEventListener('change', onChangesHousingType);

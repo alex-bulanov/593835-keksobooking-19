@@ -7,16 +7,17 @@
 
   var DIVIDER_FOR_A_LARGE_NUMBER_OF_ROOMS = 100;
   var DIVIDER_OF_THE_NUMBER_OF_ROOMS = 10;
-  var SINGLE_REMAINS = 1;
+
+  var divisionRemains = [1, 2, 4, 5, 20];
 
   var getWordEndingString = function (roomsQuantity, words) {
     var endingWord = '';
 
-    if (roomsQuantity % DIVIDER_FOR_A_LARGE_NUMBER_OF_ROOMS >= 5 && roomsQuantity % DIVIDER_FOR_A_LARGE_NUMBER_OF_ROOMS <= 20) {
+    if (roomsQuantity % DIVIDER_FOR_A_LARGE_NUMBER_OF_ROOMS >= divisionRemains[3] && roomsQuantity % DIVIDER_FOR_A_LARGE_NUMBER_OF_ROOMS <= divisionRemains[4]) {
       endingWord = words[2];
-    } else if (roomsQuantity % DIVIDER_OF_THE_NUMBER_OF_ROOMS === SINGLE_REMAINS) {
+    } else if (roomsQuantity % DIVIDER_OF_THE_NUMBER_OF_ROOMS === divisionRemains[0]) {
       endingWord = words[0];
-    } else if (roomsQuantity % DIVIDER_OF_THE_NUMBER_OF_ROOMS >= 2 && roomsQuantity % DIVIDER_OF_THE_NUMBER_OF_ROOMS <= 4) {
+    } else if (roomsQuantity % DIVIDER_OF_THE_NUMBER_OF_ROOMS >= divisionRemains[1] && roomsQuantity % DIVIDER_OF_THE_NUMBER_OF_ROOMS <= divisionRemains[2]) {
       endingWord = words[1];
     } else {
       endingWord = words[2];

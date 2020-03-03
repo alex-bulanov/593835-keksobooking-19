@@ -11,7 +11,7 @@
   };
 
   var create = function (objects) {
-    var pinTemplate = document.getElementById('pin').content.querySelector('.map__pin');
+    var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
     var pins = [];
 
     for (var i = 0; i < objects.length; i++) {

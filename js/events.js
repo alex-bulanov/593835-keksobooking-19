@@ -11,8 +11,15 @@
     var currentIndex = currentPin.dataset.index;
     var currentPinObject = adData[currentIndex];
     var currentCard = window.card.createAdCardElement(currentPinObject);
+    var popup = document.querySelector('.popup');
 
-    window.card.removeAdCardElement();
+    if (popup) {
+      var cardClose = popup.querySelector('.popup__close');
+      cardClose.removeEventListener('keydown', window.events.onCloseButtonCard);
+      document.removeEventListener('keydown', window.events.onEscPressCard);
+      popup.remove();
+    }
+
     window.show.showCard(currentCard);
   };
 

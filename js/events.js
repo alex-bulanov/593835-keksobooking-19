@@ -123,9 +123,18 @@
   };
 
   var onFilterFieldsChange = function () {
-    window.card.removeAdCardElement();
+    var popup = document.querySelector('.popup');
+
+    if (popup) {
+      var cardClose = popup.querySelector('.popup__close');
+      cardClose.removeEventListener('keydown', window.events.onCloseButtonCard);
+      document.removeEventListener('keydown', window.events.onEscPressCard);
+      popup.remove();
+    }
+
     var filteredData = window.filter.getFilteredData(adData);
     window.pins.remove();
+
     if (filteredData.length > 0) {
       window.debounce(window.show.showPins(filteredData));
     }

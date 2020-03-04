@@ -5,28 +5,27 @@
   var START_MAIN_PIN_TOP_COORINATE = 375;
   var ESC_KEY = 'Escape';
 
+  var DIVIDER_FOR_A_LARGE_NUMBER = 100;
+  var DIVIDER_OF_THE_NUMBER = 10;
+  var INDEX_FOR_ONE = 1;
+  var START_INDEX_FROM_TWO_TO_FOUR = 2;
+  var END_INDEX_FROM_TWO_TO_FOUR = 4;
+  var START_INDEX_FROM_FIVE_TO_TWENTY = 5;
+  var END_INDEX_FROM_FIVE_TO_TWENTY = 20;
+
   var getWordEndingString = function (roomsQuantity, words) {
     var endingWord = '';
-    var index = null;
 
-    roomsQuantity = roomsQuantity % 100;
-
-    if (roomsQuantity >= 11 && roomsQuantity <= 19) {
+    if (roomsQuantity % DIVIDER_FOR_A_LARGE_NUMBER >= START_INDEX_FROM_FIVE_TO_TWENTY
+      && roomsQuantity % DIVIDER_FOR_A_LARGE_NUMBER <= END_INDEX_FROM_FIVE_TO_TWENTY) {
       endingWord = words[2];
+    } else if (roomsQuantity % DIVIDER_OF_THE_NUMBER === INDEX_FOR_ONE) {
+      endingWord = words[0];
+    } else if (roomsQuantity % DIVIDER_OF_THE_NUMBER >= START_INDEX_FROM_TWO_TO_FOUR
+      && roomsQuantity % DIVIDER_OF_THE_NUMBER <= END_INDEX_FROM_TWO_TO_FOUR) {
+      endingWord = words[1];
     } else {
-      index = roomsQuantity % 10;
-      switch (index) {
-        case (1):
-          endingWord = words[0];
-          break;
-        case (2):
-        case (3):
-        case (4):
-          endingWord = words[1];
-          break;
-        default:
-          endingWord = words[2];
-      }
+      endingWord = words[2];
     }
 
     return endingWord;
@@ -44,7 +43,7 @@
     var max = arr.length - 1;
     var min = 0;
 
-    return arr[Math.floor(Math.random() * (max - min + 1) + min)];
+    return arr[getRandomNumber(min, max)];
   };
 
   var getRandomLengthArray = function (arr) {
@@ -54,7 +53,15 @@
   var pageReset = function () {
     var pinMain = document.querySelector('.map__pin--main');
     var map = document.querySelector('.map');
-    window.card.removeAdCardElement();
+    var popup = document.querySelector('.popup');
+
+    if (popup) {
+      var cardClose = popup.querySelector('.popup__close');
+      cardClose.removeEventListener('keydown', window.events.onCloseButtonCard);
+      document.removeEventListener('keydown', window.events.onEscPressCard);
+      popup.remove();
+    }
+
     window.pins.remove();
     map.classList.add('map--faded');
     pinMain.style.top = START_MAIN_PIN_TOP_COORINATE + 'px';

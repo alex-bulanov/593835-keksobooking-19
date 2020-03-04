@@ -2,18 +2,8 @@
 
 (function () {
 
-  var removeAdCardElement = function () {
-    var popup = document.querySelector('.popup');
-    if (popup !== null) {
-      var cardClose = popup.querySelector('.popup__close');
-      cardClose.removeEventListener('keydown', window.events.onCloseButtonCard);
-      document.removeEventListener('keydown', window.events.onEscPressCard);
-      popup.remove();
-    }
-  };
-
   var createAdCardElement = function (object) {
-    var cardTemplate = document.getElementById('card').content.querySelector('.map__card');
+    var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
     var cardElement = cardTemplate.cloneNode(true);
     var cardClose = cardElement.querySelector('.popup__close');
     var cardFeaturesList = cardElement.querySelector('.popup__features');
@@ -84,7 +74,6 @@
   };
 
   window.card = {
-    createAdCardElement: createAdCardElement,
-    removeAdCardElement: removeAdCardElement
+    createAdCardElement: createAdCardElement
   };
 })();

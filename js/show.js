@@ -4,8 +4,8 @@
 
   var MAX_PIN_QUANTITY = 5;
   var main = document.querySelector('main');
-  var errorTemplate = document.getElementById('error').content.querySelector('.error');
-  var successTemplate = document.getElementById('success').content.querySelector('.success');
+  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var map = document.querySelector('.map');
   var mapFilterContainer = document.querySelector('.map__filters-container');
   var mapPins = document.querySelector('.map__pins');
